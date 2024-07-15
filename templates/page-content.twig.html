@@ -1,0 +1,7 @@
+<div class="page-content">
+    {% for content in contents %}
+    <div class="field field-{{ content.name|raw }}">
+        {{ content.content|raw }}
+    </div>
+    {% endfor %}
+</div>

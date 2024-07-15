@@ -1,0 +1,11 @@
+RewriteEngine On
+
+RewriteBase /sites/
+
+RewriteRule ^about$ index.php?page=about [L]
+RewriteRule ^create-vacation$ index.php?page=create-vacation [L,QSA]
+RewriteRule ^home$ index.php [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^not-found$ index.php?page=not-found [L,QSA]
