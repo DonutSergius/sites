@@ -7,27 +7,6 @@ $twig = new \Twig\Environment($loader);
 
 $pageKey = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-$message = '';
-
-// Перевірка методу запиту
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pageKey === 'create-vacation') {
-    // Обробка даних з форми
-    $dateStart = $_POST['date-start'] ?? null;
-    $dateEnd = $_POST['date-end'] ?? null;
-    $approval = $_POST['approval'] ?? null;
-    $reason = $_POST['reason'] ?? null;
-
-    // Перевірка обов'язкових полів
-    if ($dateStart && $dateEnd && $approval && $reason) {
-        // Тут ви можете обробити дані, наприклад, зберегти їх у базі даних
-        $message = 'Гуд.';
-    } else {
-        $message = 'Будь ласка, заповніть всі поля форми.';
-    }
-    return;
-}
-
-
 switch ($pageKey) {
     case 'home':
         require 'src/Pages/home-page.php';
@@ -56,7 +35,6 @@ $pageData = [
     'title' => $titleHtml,
     'content' => $contentHtml,
     'sidebar' => $sidebarHtml,
-    'message' => $message
 ];
 
 echo $twig->render('page.twig.html', $pageData);

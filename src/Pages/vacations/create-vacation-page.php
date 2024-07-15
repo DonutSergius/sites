@@ -1,9 +1,10 @@
 <?php
-require '/xampp/htdocs/sites/vendor/autoload.php';
-require '/xampp/htdocs/sites/src/Page.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
+require PROJECT_ROOT . '/vendor/autoload.php';
+require PROJECT_ROOT . '/src/Page.php';
 require 'create-vacation-form.php';
 
-$loader = new \Twig\Loader\FilesystemLoader('/xampp/htdocs/sites/templates/');
+$loader = new \Twig\Loader\FilesystemLoader(PROJECT_ROOT . '/templates/');
 $twig = new \Twig\Environment($loader);
 
 $formHtml = $linksHtml = $twig->render('form.twig.html', $create_vacation_form->toArray());

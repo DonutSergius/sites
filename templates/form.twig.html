@@ -1,3 +1,7 @@
+<div class="message">
+    <div class="message-error">{{ error_message }}</div>
+    <div class="message-confirm">{{confirm_message}}</div>
+</div>
 <form id="{{nameForm}}" method="post">
     <div class="form-field">
         {% for input in inputs %}
@@ -8,6 +12,16 @@
                 name="{{ input.name }}"
                 class="form-field-{{input.field}}"
             ></textarea>
+            {% elseif input.type == 'select' %}
+            <select
+                id="{{ input.id }}"
+                name="{{ input.name }}"
+                class="form-field-{{input.field}}"
+            >
+                {% for value, text in input.options %}
+                <option value="{{ value }}">{{ text }}</option>
+                {% endfor %}
+            </select>
             {% else %}
             <input
                 type="{{ input.type }}"
@@ -21,26 +35,12 @@
         <input type="submit" value="send" />
     </div>
 </form>
-<div id="form-message">{{ message }}</div>
 
+<script src="{{ scripts }}"></script>
 <script>
-    document
-        .getElementById("{{ nameForm }}")
-        .addEventListener("submit", function (event) {
-            event.preventDefault();
-
-            var formData = new FormData(this);
-
-            fetch("{{ action }}", {
-                method: "POST",
-                body: formData,
-            })
-                .then((response) => response.text())
-                .then((data) => {
-                    document.getElementById("form-message").innerText = data;
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        var formId = "{{ nameForm }}";
+        var actionUrl = "{{ action }}";
+        init_form(formId, actionUrl);
+    });
 </script>

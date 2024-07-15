@@ -5,15 +5,18 @@ class Form
     private $nameForm;
     private $action;
     private $inputs;
+    private $scripts;
 
     public function __construct(
         $nameForm,
         $action,
-        $inputs
+        $inputs,
+        $scripts
     ) {
         $this->nameForm = $nameForm;
         $this->action = $action;
         $this->inputs = $inputs;
+        $this->scripts = $scripts;
     }
     public function getNameForm()
     {
@@ -30,12 +33,18 @@ class Form
         return $this->inputs;
     }
 
+    public function getScripts()
+    {
+        return $this->scripts;
+    }
+
     public function toArray()
     {
         return [
             'nameForm' => $this->getNameForm(),
             'action' => $this->getAction(),
-            'inputs' => $this->getInputs()
+            'inputs' => $this->getInputs(),
+            'scripts' => $this->getScripts(),
         ];
     }
 }
