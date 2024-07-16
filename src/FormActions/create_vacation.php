@@ -18,8 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($vacationType === "paid") {
         if ($dateStart && $dateEnd && $approval && $reason) {
+
             $start = new DateTime($dateStart);
             $end = new DateTime($dateEnd);
+
             $errors = array_merge(
                 cheсkStartDate($start),
                 cheсkStartEndDate($start, $end)
@@ -29,10 +31,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $response['error'] = 'Please fill all fields';
         }
+    } else {
+        if ($vacationTime === "specificTime") {
+            if ($datetimeStart && $datetimeEnd && $approval && $reason) {
+                $start = new DateTime($datetimeStart);
+                $end = new DateTime($datetimeEnd);
+                $errors = array_merge(
+                    cheсkStartDate($start),
+                    cheсkStartEndDate($start, $end),
+                    checkDateTime($start, $end),
+                );
+                $response['error'] = implode(". \n", $errors);
+            } else {
+                $response['error'] = 'Please fill all fields';
+            }
+        } else {
+            if ($dateStart && $dateEnd && $approval && $reason) {
+                $start = new DateTime($dateStart);
+                $end = new DateTime($dateEnd);
+                $errors = array_merge(
+                    cheсkStartDate($start),
+                    cheсkStartEndDate($start, $end),
+                );
+                $response['error'] = implode(". \n", $errors);
+            } else {
+                $response['error'] = 'Please fill all fields';
+            }
+        }
     }
     echo json_encode($response);
 } else {
     echo json_encode(['error' => 'Unknow error']);
+}
+
+function checkDateTime($dateStart, $dateEnd)
+{
+    $errors = [];
+
+    if (
+        $dateStart->format('h') < 9 || $dateStart->format('h') > 18
+        || $dateEnd->format('h') < 9 || $dateEnd->format('h') > 18
+    ) {
+        $errors[] = 'Unpaid vacation cannot take in out work time';
+    }
+
+    return $errors;
 }
 
 function cheсkStartEndDate($dateStart, $dateEnd)
