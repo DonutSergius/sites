@@ -59,6 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
+    if (empty($response['error'])) {
+        $response['confirm'] = "Vacation request send to moder";
+    }
     echo json_encode($response);
 } else {
     echo json_encode(['error' => 'Unknow error']);
