@@ -1,7 +1,7 @@
 <form id="{{nameForm}}" method="post">
     <div class="form-field">
         {% for input in inputs %}
-        <div class="field-{{input.field}}">
+        <div class="field-{{input.field}} field-{{ input.type }}">
             {% if input.type == 'textarea' %}
             <textarea
                 id="{{ input.id }}"
@@ -28,7 +28,9 @@
             {% endif %}
         </div>
         {% endfor %}
-        <input type="submit" value="send" />
+        <div class="submit-button">
+            <input type="submit" value="send" class="submit-form" />
+        </div>
     </div>
 </form>
 
