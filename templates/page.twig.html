@@ -2,24 +2,26 @@
     <title>{{ title|striptags }}</title>
     <link rel="stylesheet" href="styles/css/styles.css" />
 </head>
-<header>
-    <div class="tob-nav-bar">
-        <div class="main-menu">{{ links|raw }}</div>
+<div class="content">
+    <header>
+        <div class="top-nav-bar">
+            <div class="main-menu">{{ links|raw }}</div>
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="title">{{ title|raw }}</div>
+        <div class="message">
+            <div class="message-error">{{ error_message }}</div>
+            <div class="message-confirm">{{confirm_message}}</div>
+        </div>
+        <div class="main-conteiner">
+            <div class="center-content">{{ content|raw }}</div>
+            <div class="sidebar-content">{{ sidebar|raw }}</div>
+        </div>
     </div>
-</header>
-<div class="main-content">
-    <div class="title">{{ title|raw }}</div>
-    <div class="message">
-        <div class="message-error">{{ error_message }}</div>
-        <div class="message-confirm">{{confirm_message}}</div>
-    </div>
-    <div class="main-conteiner">
-        <div class="center-content">{{ content|raw }}</div>
-        <div class="sidebar-content">{{ sidebar|raw }}</div>
-    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="botom-bar">{{ footer|raw }}</div>
+        </div>
+    </footer>
 </div>
-<footer>
-    <div class="footer-content">
-        <div class="botom-bar">{{ footer|raw }}</div>
-    </div>
-</footer>

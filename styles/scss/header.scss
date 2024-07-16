@@ -1,0 +1,38 @@
+@import '_variables.scss';
+
+header {
+    
+    .top-nav-bar{
+        margin: 20px 0;
+        padding: 15px 10px; 
+
+        box-shadow: 0 0 30px $light-blue;
+        border-radius: 20px;
+        border-top: 3px solid $blue; 
+        border-bottom: 3px solid $blue; 
+    }
+
+    .main-menu{
+        ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            li{
+                margin: 5px 10px;
+                font-size: $node-font-size;
+                a{
+                    text-decoration: none;
+                    &:hover{
+                        text-shadow: 0 0 10px $light-blue, 0 0 20px $light-blue;
+                        transition: text-shadow 0.3s ease;
+                    }
+
+                    &.active{
+                        text-shadow: 0 0 10px $blue, 0 0 20px $blue;
+                    }
+                }
+            }
+        }
+    }
+}
