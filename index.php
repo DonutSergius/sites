@@ -7,38 +7,17 @@ $twig = new \Twig\Environment($loader);
 
 $pageKey = isset($_GET['page']) ? $_GET['page'] : 'home';
 
-$message = '';
-
-// Перевірка методу запиту
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $pageKey === 'create-vacation') {
-    // Обробка даних з форми
-    $dateStart = $_POST['date-start'] ?? null;
-    $dateEnd = $_POST['date-end'] ?? null;
-    $approval = $_POST['approval'] ?? null;
-    $reason = $_POST['reason'] ?? null;
-
-    // Перевірка обов'язкових полів
-    if ($dateStart && $dateEnd && $approval && $reason) {
-        // Тут ви можете обробити дані, наприклад, зберегти їх у базі даних
-        $message = 'Гуд.';
-    } else {
-        $message = 'Будь ласка, заповніть всі поля форми.';
-    }
-    return;
-}
-
-
 switch ($pageKey) {
     case 'home':
-        require 'src/Pages/home-page.php';
+        require 'src/page/page-home.php';
         $page = $home_page;
         break;
     case 'about':
-        require 'src/Pages/about-page.php';
+        require 'src/page/page-about.php';
         $page = $about_page;
         break;
     case 'create-vacation':
-        require 'src/Pages/vacations/create-vacation-page.php';
+        require 'src/page/vacations/page-create-vacation.php';
         $page = $create_vacation;
         break;
     default:
@@ -56,7 +35,6 @@ $pageData = [
     'title' => $titleHtml,
     'content' => $contentHtml,
     'sidebar' => $sidebarHtml,
-    'message' => $message
 ];
 
 echo $twig->render('page.twig.html', $pageData);

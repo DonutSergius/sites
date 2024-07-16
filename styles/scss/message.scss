@@ -1,0 +1,10 @@
+.message{
+    width: 100%;
+    text-align: center;
+    .message-error{
+        color: red;
+    }
+    .message-confirm{
+        color: green;
+    }
+}
