@@ -9,15 +9,15 @@ $pageKey = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 switch ($pageKey) {
     case 'home':
-        require 'src/Pages/home-page.php';
+        require 'src/page/page-home.php';
         $page = $home_page;
         break;
     case 'about':
-        require 'src/Pages/about-page.php';
+        require 'src/page/page-about.php';
         $page = $about_page;
         break;
     case 'create-vacation':
-        require 'src/Pages/vacations/create-vacation-page.php';
+        require 'src/page/vacations/page-create-vacation.php';
         $page = $create_vacation;
         break;
     default:

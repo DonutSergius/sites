@@ -1,9 +1,9 @@
 <?php
-require '/xampp/htdocs/sites/src/Form.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
+require PROJECT_ROOT . '/src/class/Form.php';
 
 $nameForm = 'сreate_vacation';
-$action = 'src/FormActions/create_vacation.php';
+$action = 'src/formActions/create_vacation.php';
 
 $inputs = [
     [
@@ -71,6 +71,6 @@ $inputs = [
     ],
 ];
 
-$scripts = 'src/JS/FormScripts/vacation_form.js';
+$scripts = 'src/js/formScripts/vacation_form.js';
 
 $create_vacation_form = new Form($nameForm, $action, $inputs, $scripts);

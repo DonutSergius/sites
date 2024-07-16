@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formattedStartDate = $startDate->format('Y-m-d H:i:s');
         $formattedCurrentDate = $currentDate->format('Y-m-d H:i:s');
 
-        $response['confirm'] = 'Complete success' .  $formattedStartDate . ' //' . $formattedCurrentDate;
+        $response['confirm'] = 'Complete success' .   $formattedStartDate . ' //' . $formattedCurrentDate;
     } else {
         $response['error'] = 'Please fill all field in form.';
     }
