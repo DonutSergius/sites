@@ -1,10 +1,23 @@
-.message{
+@import '_variables.scss';
+
+.message-container{
+    margin: 40px 0;
     width: 100%;
-    text-align: center;
-    .message-error{
-        color: red;
-    }
-    .message-confirm{
-        color: green;
+    .message{
+        width: 75%;
+        margin: 0 auto;   
+        .message-error, .message-confirm{
+            padding: 20px 15px;
+            width: 100%;
+            border-radius: 20px;
+        }
+        .message-error{
+            background-color: $dark-red;
+            box-shadow: 0 0 30px $light-red;
+        }
+        .message-confirm{
+            background-color: $dark-green;
+            box-shadow: 0 0 30px $light-green;
+        }
     }
 }

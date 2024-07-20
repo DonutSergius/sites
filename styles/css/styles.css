@@ -69,15 +69,26 @@ header .main-menu ul li a:hover {
 header .main-menu ul li a.active {
   text-shadow: 0 0 10px #535DE0, 0 0 20px #535DE0;
 }
-.message {
+.message-container {
+  margin: 40px 0;
   width: 100%;
-  text-align: center;
 }
-.message .message-error {
-  color: red;
+.message-container .message {
+  width: 75%;
+  margin: 0 auto;
 }
-.message .message-confirm {
-  color: green;
+.message-container .message .message-error, .message-container .message .message-confirm {
+  padding: 20px 15px;
+  width: 100%;
+  border-radius: 20px;
+}
+.message-container .message .message-error {
+  background-color: rgb(149, 10, 10);
+  box-shadow: 0 0 30px rgb(211, 29, 29);
+}
+.message-container .message .message-confirm {
+  background-color: rgb(15, 96, 15);
+  box-shadow: 0 0 30px rgb(34, 207, 34);
 }
 header a {
   font-size: 18px;
