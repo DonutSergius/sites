@@ -1,5 +1,12 @@
 <ul>
     {% for link in links %}
-    <li><a href="/sites/{{ link.url }}">{{ link.title }}</a></li>
+    <li>
+        <a
+            href="/sites/{{ link.url }}"
+            class="{{ link.active ? 'active' : '' }}"
+        >
+            {{ link.title }}
+        </a>
+    </li>
     {% endfor %}
 </ul>

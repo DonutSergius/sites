@@ -57,9 +57,13 @@ function init_form(formId, actionUrl) {
                 var confirmElement = document.querySelector(".message-confirm");
                
                 if (data.error) {
+                    confirmElement.style.display = "none";
+                    errorElement.style.display = "block";
                     if (errorElement) errorElement.innerText = data.error;
                     if (confirmElement) confirmElement.innerText = "";
                 } else if (data.confirm) {
+                    confirmElement.style.display = "block";
+                    errorElement.style.display = "none";
                     if (confirmElement) confirmElement.innerText = data.confirm;
                     if (errorElement) errorElement.innerText = "";
                 }

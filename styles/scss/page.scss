@@ -7,7 +7,7 @@ header{
     }
 }
 
-.main-content {
+.content {
     max-width: $desktop;
     padding: 0 15px;
     box-sizing: border-box;
@@ -46,37 +46,37 @@ header{
 }
 
 @media(max-width: $desktop){
-    .main-content{
+    .content{
         max-width: $smallDesktop;
     }
 }
 
 @media(max-width: $smallDesktop){
-    .main-content{
+    .content{
         max-width: $bigTable;
     }
 }
 
 @media(max-width: $bigTable){
-    .main-content{
+    .content{
         max-width: $table;
     }
 }
 
 @media(max-width: $table){
-    .main-content{
+    .content{
         max-width: $smallTable;
     }
 }
 
 @media(max-width: $smallTable){
-    .main-content{
+    .content{
         max-width: $phone;
     }
 }
 
 @media(max-width: $phone){
-    .main-content{
+    .content{
         max-width: $smallPhone;
     }
 }
