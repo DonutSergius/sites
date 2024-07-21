@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<form id="{{nameForm}}" method="post">
+<form id="{{nameForm}}" method="post" action="{{ action }}">
     <div class="form-field">
         {% for input in inputs %}
         <div class="field-{{input.field}} field-{{ input.type }}">

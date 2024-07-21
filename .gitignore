@@ -1,4 +1,6 @@
 /package-lock.json
 /package.json
-/node_modules/*
-/gulp_start.bat
+node_modules/*
+gulp_start.bat
+vacation_log.txt
+db_config.php

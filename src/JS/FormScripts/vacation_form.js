@@ -15,7 +15,6 @@ function init_form(formId, actionUrl) {
     datetimeEndField.style.display = "none";
     
     vacationType.addEventListener("change", function() {
-                      
         if (this.value === "paid") {
             dateStartField.style.display = "block";
             dateEndField.style.display = "block";
@@ -24,21 +23,32 @@ function init_form(formId, actionUrl) {
             datetimeEndField.style.display = "none";
         } else {
             vacationTime.style.display = "block";
-
-            vacationTime.addEventListener("change", function(){
-
-                if(this.value === "fullDay"){
-                    dateStartField.style.display = "block";
-                    dateEndField.style.display = "block";
-                    datetimeStartField.style.display = "none";
-                    datetimeEndField.style.display = "none";
-                } else {
-                    dateStartField.style.display = "none";
-                    dateEndField.style.display = "none";
-                    datetimeStartField.style.display = "block";
-                    datetimeEndField.style.display = "block";
-                }
-            });
+    
+            if(vacationTime.value === "fullDay"){
+                dateStartField.style.display = "block";
+                dateEndField.style.display = "block";
+                datetimeStartField.style.display = "none";
+                datetimeEndField.style.display = "none";
+            } else {
+                dateStartField.style.display = "none";
+                dateEndField.style.display = "none";
+                datetimeStartField.style.display = "block";
+                datetimeEndField.style.display = "block";
+            }
+        }
+    });
+    
+    vacationTime.addEventListener("change", function(){
+        if(this.value === "fullDay"){
+            dateStartField.style.display = "block";
+            dateEndField.style.display = "block";
+            datetimeStartField.style.display = "none";
+            datetimeEndField.style.display = "none";
+        } else {
+            dateStartField.style.display = "none";
+            dateEndField.style.display = "none";
+            datetimeStartField.style.display = "block";
+            datetimeEndField.style.display = "block";
         }
     });
 
@@ -71,7 +81,8 @@ function init_form(formId, actionUrl) {
             .catch((error) => {
                 console.error("Error:", error);
                 var errorElement = document.querySelector(".message-error");
-                if (errorElement) errorElement.innerText = "Error: " + error.message;
+                errorElement.style.display = "block";
+                errorElement.innerText = "Error: " + error.message;
             });
         });
     }

@@ -1,0 +1,24 @@
+{% if body_rows %}
+<div class="container-table-{{ table_name }}">
+    <table class="table-{{ table_name }}">
+        <thead class="table-head_{{ table_name }}">
+            <tr>
+                {% for header in header_labels %}
+                <th class="thead-{{ header.class }}">{{ header.name }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody class="table-body_{{ table_name }}">
+            {% for row in body_rows %}
+            <tr class="tbody-{{ row.class }}">
+                {% for td in row %}
+                <td class="td-{{ td.class }}">{{ td.value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="default_table_message">No content exist</div>
+{% endif %}

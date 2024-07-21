@@ -10,7 +10,7 @@ $pageKey = isset($_GET['page']) ? $_GET['page'] : 'home';
 switch ($pageKey) {
     case 'home':
         require 'src/page/page-home.php';
-        $page = $home_page;
+        $page = buidHomePage();
         break;
     case 'about':
         require 'src/page/page-about.php';
@@ -18,7 +18,7 @@ switch ($pageKey) {
         break;
     case 'create-vacation':
         require 'src/page/vacations/page-create-vacation.php';
-        $page = $create_vacation;
+        $page = buildCreateVacationPage();
         break;
     default:
         echo $twig->render('page-not-found.twig.html', ['content' => $_SERVER['REQUEST_METHOD']]);
