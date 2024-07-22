@@ -2,7 +2,8 @@ RewriteEngine On
 
 RewriteBase /sites/
 
-RewriteRule ^about$ index.php?page=about [L]
+RewriteRule ^login$ index.php?page=login [L]
+RewriteRule ^logout$ index.php?page=logout [L]
 RewriteRule ^create-vacation$ index.php?page=create-vacation [L,QSA]
 RewriteRule ^home$ index.php [L]
 

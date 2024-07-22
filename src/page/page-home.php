@@ -6,7 +6,7 @@ require PROJECT_ROOT . '/src/table/table-vacation.php';
 
 function buidHomePage()
 {
-    $sql = "SELECT * FROM Vacation";
+    $sql = "SELECT * FROM Vacation ORDER BY vacation_id DESC";
 
     $content = [
         ['name' => 'homepage-table', 'content' => buildVacationTable($sql)],

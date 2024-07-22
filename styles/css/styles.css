@@ -5,11 +5,16 @@ body, html {
   height: 100%;
   background-color: #070a35;
 }
+
+pre{
+  color:white
+}
+
 form .form-field input, form .form-field textarea, form .form-field select {
   font-size: 18px;
   width: 50%;
   margin: 0 auto;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   padding: 5px 10px;
   text-align: center;
   border: 3px solid #535DE0;
@@ -30,7 +35,7 @@ form .form-field textarea {
 form .form-field select option {
   color: #070a35;
 }
-form .form-field .field-input, form .form-field .field-textarea, form .form-field .field-select, form .form-field .field-text {
+form .form-field .field-input, form .form-field .field-textarea, form .form-field .field-select, form .form-field .field-text, form .form-field .field-password {
   display: flex;
   justify-content: center;
 }
@@ -159,6 +164,25 @@ header a {
     max-width: 320px;
   }
 }
-table {
-  color: white;
+.container-table-vacation-list {
+  margin: 25px 0;
+}
+.container-table-vacation-list table {
+  box-shadow: 0 0 20px #9EB7E0;
+  color: #9EB7E0;
+  background-color: #070a35;
+  width: 100%;
+  border-collapse: collapse;
+}
+.container-table-vacation-list table thead {
+  color: #070a35;
+  background-color: #535DE0;
+}
+.container-table-vacation-list table tr, .container-table-vacation-list table td, .container-table-vacation-list table th {
+  text-align: center;
+  border: 1px solid;
+  padding: 10px;
+}
+.container-table-vacation-list table tr.td-vacation_reason, .container-table-vacation-list table td.td-vacation_reason, .container-table-vacation-list table th.td-vacation_reason {
+  text-align: left;
 }

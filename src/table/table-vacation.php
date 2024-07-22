@@ -54,6 +54,10 @@ function getHeaderLables()
             'name' => 'Type',
         ],
         [
+            'class' => 'vacation_time',
+            'name' => 'Time',
+        ],
+        [
             'class' => 'date_start',
             'name' => 'Start',
         ],

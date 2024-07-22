@@ -8,5 +8,13 @@
             {{ link.title }}
         </a>
     </li>
-    {% endfor %}
+    {% endfor %} {% if session.user_nickname is defined %}
+    <li class="user_nickname">
+        {{ session.user_nickname }} | {{ session.user_id }} | {{
+        session.user_role }} |
+    </li>
+    <li><a href="logout">log out</a></li>
+    {% else %}
+    <li><a href="login">log in</a></li>
+    {% endif %}
 </ul>
