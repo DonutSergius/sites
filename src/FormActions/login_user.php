@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function loadSession($conn, $username)
 {
-    $sql = 'SELECT user_id, user_nickname, user_role FROM user WHERE user_nickname = ?';
+    $sql = 'SELECT user_id, user_nickname, user_role FROM user_info WHERE user_nickname = ?';
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $username);
         mysqli_stmt_execute($stmt);

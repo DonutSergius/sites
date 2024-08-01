@@ -2,6 +2,7 @@
 header('Content-Type: application/json');
 require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
 require_once  PROJECT_ROOT . '/db_config.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $currentDate = new DateTime();
@@ -52,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
     if (empty($response['error'])) {
+
         if ($vacationTime == 'fullDay') {
             $start = new DateTime($dateStart);
             $end = new DateTime($dateEnd);
@@ -63,13 +65,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date_start = $start->format('Y-m-d H:i:s');
         $date_end = $end->format('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO Vacation 
-        (vacation_type, vacation_date_type, vacation_date_start, 
+        $sql = "INSERT INTO vacation_request 
+        (vacation_user_id, vacation_type, vacation_date_type, vacation_date_start, 
         vacation_date_end, vacation_reason, vacation_approval) 
-        VALUES (?, ?, ?, ?, ?, ?)";
+        VALUES (?, ?, ?, ?, ?, ?, ?)";
 
+        $conn = getDBConf();
+        $user_id = $_SESSION['user_id'];
         if ($stmt = mysqli_prepare($conn, $sql)) {
-            mysqli_stmt_bind_param($stmt, "sssssi", $vacationType, $vacationTime, $date_start, $date_end, $reason, $approval);
+            mysqli_stmt_bind_param(
+                $stmt,
+                "isssssi",
+                $user_id,
+                $vacationType,
+                $vacationTime,
+                $date_start,
+                $date_end,
+                $reason,
+                $approval
+            );
 
             if (mysqli_stmt_execute($stmt)) {
                 $response_log['confirm'] = 'New row in db will be added';

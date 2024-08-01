@@ -1,5 +1,7 @@
 <?php
 
+namespace Sites\Class;
+
 class Table
 {
     private $table_name;

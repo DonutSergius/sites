@@ -1,5 +1,7 @@
 <?php
 
+namespace Sites\Class;
+
 class Form
 {
     private $nameForm;

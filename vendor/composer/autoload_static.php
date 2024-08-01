@@ -27,6 +27,7 @@ class ComposerStaticInitb938bc11c5920abf5f9627322e97c02c
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Sites\\' => 6,
         ),
     );
 
@@ -46,6 +47,10 @@ class ComposerStaticInitb938bc11c5920abf5f9627322e97c02c
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Sites\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 
