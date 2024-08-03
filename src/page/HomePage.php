@@ -19,7 +19,7 @@ class HomePage
     /**
      * Function build table on page.
      */
-    function buildHomePage()
+    public function buildPage()
     {
         $sql = "SELECT * FROM vacation_info ORDER BY vacation_id DESC";
 

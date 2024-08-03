@@ -1,5 +1,8 @@
 <?php
+
 require 'vendor/autoload.php';
+
+use Sites\Page;
 
 session_start();
 
@@ -7,7 +10,7 @@ $loader = new \Twig\Loader\FilesystemLoader('templates/');
 $twig = new \Twig\Environment($loader);
 
 if (empty($_SESSION['user_role'])) {
-    $page = (new Sites\Page\LoginUserPage())->buildLoginUserPage();
+    $page = (new Sites\Page\LoginUserPage())->buildPage();
 
     $titleHtml = $twig->render('page-title.twig.html', ['title' => $page->getTitle()]);
     $contentHtml = $twig->render('page-content.twig.html', ['contents' => $page->getContent()]);
@@ -57,11 +60,13 @@ function getPagesList()
     return [
         'home' => [
             'function' => function () {
-                return (new \Sites\Page\HomePage())->buildHomePage();
+                return (new Page\HomePage())->buildPage();
             },
         ],
         'create-vacation' => [
-            'function' => 'Sites\\Page\\Vacations\\CreateVacationPage::buildCreateVacationPage'
+            'function' => function () {
+                return (new Page\Vacations\CreateVacationPage())->buildPage();
+            },
         ],
         'logout' => [
             'action' => function () {
@@ -72,17 +77,23 @@ function getPagesList()
         ],
         'user-cabinet' => [
             'function' => function () {
-                return (new \Sites\Page\UserCabinetPage())->buildUserCabinet();
+                return (new Page\UserCabinetPage())->buildPage();
             },
         ],
         'my-vacation-request' => [
-            'function' => 'Sites\\Page\\MyVacationRequestPage::buildMyVacationRequest'
+            'function' => function () {
+                return (new Page\MyVacationRequestPage())->buildPage();
+            },
         ],
         'create-user' => [
-            'function' => 'Sites\\Page\\CreateUserPage::buildCreateUserPage'
+            'function' => function () {
+                return (new Page\CreateUserPage())->buildPage();
+            },
         ],
         'create-role' => [
-            'function' => 'Sites\\Page\\CreateRolePage::buildCreateRolePage'
+            'function' => function () {
+                return (new Page\CreateRolePage())->buildPage();
+            },
         ],
     ];
 }

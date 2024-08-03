@@ -16,10 +16,10 @@ class CreateRolePage
     /**
      * Function to build Create User form.
      */
-    public static function buildCreateRolePage()
+    public function buildPage()
     {
         $content = [
-            ['name' => 'create-role', 'content' => (new CreateRoleForm)->buildCreateRoleForm()],
+            ['name' => 'create-role', 'content' => (new CreateRoleForm)->buildForm()],
         ];
 
         return new Page('Create Role', $content, '');

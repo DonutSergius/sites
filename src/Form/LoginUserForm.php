@@ -17,7 +17,7 @@ class LoginUserForm
     /**
      * Function to build form.
      */
-    public function buildLoginUserForm()
+    public function buildForm()
     {
         $nameForm = 'login_user_form';
         $action = 'src/FormActions/login_user.php';

@@ -18,7 +18,7 @@ class UserCabinetPage
     /**
      * function to build table on page.
      */
-    public function buildUserCabinet()
+    public function buildPage()
     {
         $userInfo = $this->getUserInfo(getDBConf(), $_SESSION['user_nickname']);
 

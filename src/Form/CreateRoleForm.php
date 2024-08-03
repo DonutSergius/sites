@@ -16,7 +16,7 @@ class CreateRoleForm
     /**
      * Function to build form.
      */
-    public function buildCreateRoleForm()
+    public function buildForm()
     {
         $nameForm = 'cretae_role_form';
         $action = 'src/FormActions/create_role.php';

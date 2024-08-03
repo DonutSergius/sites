@@ -16,10 +16,10 @@ class CreateUserPage
     /**
      * Function to build Create User form.
      */
-    public static function buildCreateUserPage()
+    public function buildPage()
     {
         $content = [
-            ['name' => 'cretae-user', 'content' => (new CreateUserForm)->buildCreateUserForm()],
+            ['name' => 'cretae-user', 'content' => (new CreateUserForm)->buildForm()],
         ];
 
         return new Page('Create user', $content, '');

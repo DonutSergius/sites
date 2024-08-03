@@ -17,10 +17,10 @@ class LoginUserPage
     /**
      * Function to build login form.
      */
-    public static function buildLoginUserPage()
+    public function buildPage()
     {
         $content = [
-            ['name' => 'login_user', 'content' => (new LoginUserForm())->buildLoginUserForm()],
+            ['name' => 'login_user', 'content' => (new LoginUserForm())->buildForm()],
         ];
 
         return new Page('Login', $content, '');

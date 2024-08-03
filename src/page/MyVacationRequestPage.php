@@ -11,7 +11,7 @@ require_once PROJECT_ROOT . '/db_config.php';
 
 class MyVacationRequestPage
 {
-    public static function buildMyVacationRequest()
+    public function buildPage()
     {
         $sql = "SELECT * FROM vacation_request WHERE vacation_user_id =" . $_SESSION['user_id'] . " ORDER BY vacation_id DESC";
 

@@ -11,9 +11,15 @@
         <tbody class="table-body_{{ table_name }}">
             {% for row in body_rows %}
             <tr class="tbody-{{ row.class }}">
-                {% for td in row %}
+                {% for td in row %} {% if td.class == 'view-element' %}
+                <td class="td-{{ td.class }}">
+                    <a href="{{ td.element }}/edit/{{ td.id }}"
+                        >{{ td.value }}</a
+                    >
+                </td>
+                {% else %}
                 <td class="td-{{ td.class }}">{{ td.value }}</td>
-                {% endfor %}
+                {% endif %} {% endfor %}
             </tr>
             {% endfor %}
         </tbody>

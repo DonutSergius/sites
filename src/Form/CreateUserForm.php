@@ -17,7 +17,7 @@ class CreateUserForm
     /**
      * Function to build form.
      */
-    public function buildCreateUserForm()
+    public function buildForm()
     {
         $nameForm = 'cretae_user_form';
         $action = 'src/FormActions/create_user.php';

@@ -12,6 +12,9 @@ RewriteRule ^my-vacation-request$ index.php?page=my-vacation-request [L]
 RewriteRule ^create-user$ index.php?page=create-user [L]
 RewriteRule ^create-role$ index.php?page=create-role [L]
 
+# New rule to handle /vacation/edit/ID
+RewriteRule ^vacation/edit/([0-9]+)$ index.php?page=edit-vacation&id=$1 [L,QSA]
+
 # Rewrite to not-found page if file or directory does not exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

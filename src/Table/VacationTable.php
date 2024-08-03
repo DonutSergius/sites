@@ -45,7 +45,7 @@ class VacationTable
     function getBodyRows($vacation_data)
     {
         $body_rows = [];
-
+        $element_id = 0;
         foreach ($vacation_data as $row) {
             $body_row = [];
             $date_type = $row['vacation_date_type'];
@@ -62,11 +62,23 @@ class VacationTable
                     $value = $this->formatDate($value);
                 }
 
+                if ($column_name == 'vacation_id') {
+                    $element_id = $value;
+                }
+
                 $body_row[] = [
                     'class' => $column_name,
                     'value' => $value
                 ];
             }
+
+            $body_row[] = [
+                'class' => 'view-element',
+                'element' => 'vacation',
+                'id' => $element_id,
+                'value' => 'View',
+            ];
+
             $body_rows[] = $body_row;
         }
 
@@ -125,6 +137,10 @@ class VacationTable
             [
                 'class' => 'vacation_approval',
                 'name' => 'Approval',
+            ],
+            [
+                'class' => 'view-element',
+                'name' => 'View',
             ],
         ];
 

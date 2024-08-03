@@ -18,10 +18,10 @@ class CreateVacationPage
     /**
      * Function to build form on page.
      */
-    public static function buildCreateVacationPage()
+    public function buildPage()
     {
         $content = [
-            ['name' => 'create_vacation', 'content' => (new CreateVacationForm)->buildVacationForm()],
+            ['name' => 'create_vacation', 'content' => (new CreateVacationForm)->buildForm()],
         ];
 
         return new Page('Create vacation', $content, $_SESSION['user_id']);

@@ -16,7 +16,7 @@ class CreateVacationForm
     /**
      * Function to build form.
      */
-    function buildVacationForm()
+    function buildForm()
     {
         $nameForm = 'сreate_vacation';
         $action = 'src/FormActions/create_vacation.php';
