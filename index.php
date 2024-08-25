@@ -105,5 +105,10 @@ function getPagesList()
                 return (new Page\ApprovalVacationPage())->buildPage();
             },
         ],
+        'my-operations' => [
+            'function' => function () {
+                return (new Page\MyOperationPage())->buildPage();
+            },
+        ],
     ];
 }

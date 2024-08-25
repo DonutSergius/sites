@@ -89,22 +89,22 @@ class CreateCertificateForm
         }
 
         if (empty($response['error'])) {
-            $response = $this->submitForm();
+            $response = $this->submitForm($user_id);
         }
 
         echo json_encode($response);
     }
 
-    private function submitForm()
+    private function submitForm($user_id)
     {
-        session_start();
         $date_start = new DateTime();
         $date_end = $_POST['date-end'] ?? null;
         $count_days = $_POST['count-days'] ?? null;
         $user_nickname = $_POST['user-nickname'] ?? null;
 
-        $certificate_name = 'Bonus certificate to' . $user_nickname;
+        $certificate_name = 'Bonus certificate to ' . $user_nickname;
         $certificate_type = "Bonus";
+        $date_end = new DateTime($date_end);
         $start = $date_start->format('Y-m-d H:i:s');
         $end = $date_end->format('Y-m-d H:i:s');
 
@@ -128,6 +128,26 @@ class CreateCertificateForm
             );
             mysqli_stmt_execute($stmt);
         }
+
+        $sql_op = "INSERT INTO operation (
+            operation_user_id, operation_name, operation_count_before, operation_count, operation_count_after, operation_date)
+            VALUES (?, ?, ?, ?, ?, ?)";
+        $op_name = "Gived Bonus Certificate";
+        $count_before = 0;
+        if ($stmt_op = mysqli_prepare($conn, $sql_op)) {
+            mysqli_stmt_bind_param(
+                $stmt_op,
+                "isiiis",
+                $user_id,
+                $op_name,
+                $count_before,
+                $count_days,
+                $count_days,
+                $start,
+            );
+            mysqli_stmt_execute($stmt_op);
+        }
+
         mysqli_close($conn);
 
         $response['confirm'] = 'Bonus Certificate created';

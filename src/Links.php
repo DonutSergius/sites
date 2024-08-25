@@ -87,7 +87,7 @@ class Links
     {
         return [
             ['url' => 'my-vacation-request', 'title' => 'My vacation request', 'tag' => $user_role],
-            ['url' => 'my-operation', 'title' => 'My operation', 'tag' => $user_role],
+            ['url' => 'my-operations', 'title' => 'My operation', 'tag' => $user_role],
         ];
     }
 }

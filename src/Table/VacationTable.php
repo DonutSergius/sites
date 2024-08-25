@@ -75,11 +75,11 @@ class VacationTable
 
             $pageKey = $_GET['page'] ?? 'home';
 
-            if ($pageKey == 'my-vacation-request') {
+            if ($pageKey == 'my-vacation-request' && $row['vacation_status'] != "canceled") {
                 $body_row[] = [
                     'class' => 'workflow',
                     'element' => 'vacation',
-                    'action' => 'cancel',
+                    'action' => '/sites/src/FormActions/cancel.php',
                     'id' => $element_id,
                     'value' => 'Cancel',
                 ];
@@ -124,6 +124,12 @@ class VacationTable
             'vacation_reason' => 'Reason',
             'vacation_status' => 'Status',
             'vacation_approval' => 'Approval',
+            // TEMP TITLE
+            'operation_name' => 'Name',
+            'operation_count_before' => 'Before',
+            'operation_count' => 'Action',
+            'operation_count_after' => 'Result',
+            'operation_date' => 'Date',
         ];
 
         $header_labels = [];
