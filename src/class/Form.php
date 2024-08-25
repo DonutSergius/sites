@@ -1,5 +1,7 @@
 <?php
 
+namespace Sites\Class;
+
 class Form
 {
     private $nameForm;
@@ -36,6 +38,16 @@ class Form
     public function getScripts()
     {
         return $this->scripts;
+    }
+
+    public function setDefaultValue(array $value)
+    {
+        foreach ($this->inputs as $i => &$input) {
+            if (isset($value[$i])) {
+                $input['default_value'] = $value[$i];
+            }
+        }
+        unset($input);
     }
 
     public function toArray()

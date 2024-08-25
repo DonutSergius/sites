@@ -5,24 +5,28 @@
     </div>
 </div>
 
-<form id="{{nameForm}}" method="post">
+<form id="{{nameForm}}" method="post" action="{{ action }}">
     <div class="form-field">
         {% for input in inputs %}
         <div class="field-{{input.field}} field-{{ input.type }}">
+            <label id="field-{{input.id}}" class="field-title-element">{{ input.title }}</label>
             {% if input.type == 'textarea' %}
             <textarea
                 id="{{ input.id }}"
                 name="{{ input.name }}"
                 class="form-field-{{input.field}}"
-            ></textarea>
+            >
+{{ input.default_value }}</textarea
+            >
             {% elseif input.type == 'select' %}
             <select
                 id="{{ input.id }}"
                 name="{{ input.name }}"
                 class="form-field-{{input.field}}"
+                value="{{ input.default_value }}"
             >
                 {% for value, text in input.options %}
-                <option value="{{ value }}">{{ text }}</option>
+                <option value="{{ value }}" {% if value == input.default_value %} selected {% endif %}>{{ text }}</option>
                 {% endfor %}
             </select>
             {% else %}
@@ -31,6 +35,7 @@
                 id="{{ input.id }}"
                 name="{{ input.name }}"
                 class="form-field-{{input.field}}"
+                value="{{ input.default_value }}"
             />
             {% endif %}
         </div>

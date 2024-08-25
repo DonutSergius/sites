@@ -6,7 +6,7 @@ form {
             font-size: $node-font-size;
             width: 50%;
             margin: 0 auto;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             padding: 5px 10px;
             text-align: center;
             border: 3px solid $blue;
@@ -33,7 +33,7 @@ form {
             }
         }
         .field- {
-            &input,&textarea, &select, &text{
+            &input, &textarea, &select, &text, &password{
                 display: flex;
                 justify-content: center;
             }

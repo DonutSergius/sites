@@ -1,0 +1,34 @@
+{% if body_rows %}
+<div class="container-table-{{ table_name }}">
+    <table class="table-{{ table_name }}">
+        <thead class="table-head_{{ table_name }}">
+            <tr>
+                {% for header in header_labels %}
+                <th class="thead-{{ header.machine_name }}">
+                    {{ header.title }}
+                </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody class="table-body_{{ table_name }}">
+            {% for row in body_rows %}
+            <tr class="tbody-{{ row.class }}">
+                {% for td in row %} {% if td.class == 'workflow' %}
+                <td class="td-{{ td.class }}">
+                    <form method="POST" action="{{ td.action }}">
+                        <button type="submit" name="action" value="{{ td.id }}">
+                            {{ td.value }}
+                        </button>
+                    </form>
+                </td>
+                {% else %}
+                <td class="td-{{ td.class }}">{{ td.value }}</td>
+                {% endif %} {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="default_table_message">No content exist</div>
+{% endif %}

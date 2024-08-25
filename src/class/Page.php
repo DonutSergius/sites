@@ -1,5 +1,7 @@
 <?php
 
+namespace Sites\Class;
+
 class Page
 {
     private $title;

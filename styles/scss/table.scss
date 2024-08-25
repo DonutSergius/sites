@@ -1,0 +1,24 @@
+@import '_variables.scss';
+
+.container-table-vacation-list{
+    table {
+        box-shadow: 0 0 20px $light-blue;
+        thead {
+            color: $dark-blue;
+            background-color: $blue;
+        }
+        color: $light-blue;
+        background-color: $dark-blue;
+        width: 100%;
+        border-collapse: collapse;
+        tr, td, th {
+            &.td-vacation_reason{
+                text-align: left;
+            }
+            text-align: center;
+            border: 1px solid;
+            padding: 10px;
+        }
+    }
+    margin: 25px 0;
+}

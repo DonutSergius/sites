@@ -1,6 +1,6 @@
-<ul>
+<ul class="main-links">
     {% for link in links %}
-    <li>
+    <li class="link-{{ link.url }}">
         <a
             href="/sites/{{ link.url }}"
             class="{{ link.active ? 'active' : '' }}"

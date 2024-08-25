@@ -2,10 +2,19 @@ RewriteEngine On
 
 RewriteBase /sites/
 
-RewriteRule ^about$ index.php?page=about [L]
+# Existing rules
+RewriteRule ^user-cabinet$ index.php?page=user-cabinet [L]
+RewriteRule ^login$ index.php?page=login [L]
+RewriteRule ^logout$ index.php?page=logout [L]
 RewriteRule ^create-vacation$ index.php?page=create-vacation [L,QSA]
-RewriteRule ^home$ index.php [L]
+RewriteRule ^home$ index.php?page=home [L]
+RewriteRule ^my-vacation-request$ index.php?page=my-vacation-request [L]
+RewriteRule ^create-user$ index.php?page=create-user [L]
+RewriteRule ^create-role$ index.php?page=create-role [L]
+RewriteRule ^create-certificate$ index.php?page=create-certificate [L]
+RewriteRule ^approval-vacation$ index.php?page=approval-vacation [L]
 
+# Rewrite to not-found page if file or directory does not exist
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^not-found$ index.php?page=not-found [L,QSA]
+RewriteRule . index.php?page=not-found [L,QSA]
