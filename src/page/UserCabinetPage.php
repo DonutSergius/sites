@@ -3,24 +3,17 @@
 namespace Sites\Page;
 
 use Sites\Class\Page;
+use Sites\Services\DBService;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once PROJECT_ROOT . '/db_config.php';
-
-/**
- * Create user cabinet page.
- * 
- * Require Class Page.
- * Require Table table-vacation.
- */
 class UserCabinetPage
 {
-    /**
-     * function to build table on page.
-     */
     public function buildPage()
     {
-        $userInfo = $this->getUserInfo(getDBConf(), $_SESSION['user_nickname']);
+        $loader = new \Twig\Loader\FilesystemLoader('templates/');
+        $twig = new \Twig\Environment($loader);
+
+        $userInfo = $this->getUserInfo((new DBService)->getDBConf(), $_SESSION['user_nickname']);
+        $linksHtml = $twig->render('links.twig.html', ['links' => (new \Sites\Links)->buildUserLinks(), 'session' => $_SESSION]);
 
         if ($userInfo === false) {
             $content = [
@@ -28,6 +21,7 @@ class UserCabinetPage
             ];
         } else {
             $content = [
+                ['name' => 'user-links', 'content' => $linksHtml],
                 ['name' => 'user-first-name', 'content' => 'First Name: ' . $userInfo['user_first_name']],
                 ['name' => 'user-last-name', 'content' => 'Last Name: ' . $userInfo['user_last_name']],
                 ['name' => 'user-created', 'content' => 'Created: ' . $userInfo['user_created']],

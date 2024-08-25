@@ -3,20 +3,11 @@
 namespace Sites\Form;
 
 use Sites\Class\Form;
+use Sites\Services\DBService;
+use Sites\Class\Elements;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once PROJECT_ROOT . '/db_config.php';
-
-/**
- * Create form.
- * 
- * Require Class Form.
- */
 class CreateUserForm
 {
-    /**
-     * Function to build form.
-     */
     public function buildForm()
     {
         $nameForm = 'cretae_user_form';
@@ -25,7 +16,7 @@ class CreateUserForm
 
         $inputs = $this->getInputsElements();
 
-        $loader = new \Twig\Loader\FilesystemLoader(PROJECT_ROOT . '/templates/');
+        $loader = new \Twig\Loader\FilesystemLoader('templates/');
         $twig = new \Twig\Environment($loader);
 
         $create_user_form = new Form($nameForm, $action, $inputs, $scripts);
@@ -33,60 +24,24 @@ class CreateUserForm
         return $twig->render('form.twig.html', $create_user_form->toArray());
     }
 
-    /**
-     * Function to get elements in form.
-     */
     private function getInputsElements()
     {
-        $sql = "SELECT role_id, role_name FROM role";
-        $conn = getDBConf();
-        $result = mysqli_query($conn, $sql);
+        $service = new DBService;
+
+        $data = $service->getData($service->setLabel([]), 'role');
 
         $options = [];
-        while ($row = mysqli_fetch_assoc($result)) {
+        while ($row = mysqli_fetch_assoc($data)) {
             $options[$row['role_id']] = $row['role_name'];
         }
 
-        mysqli_close($conn);
-
         return [
-            [
-                'type' => 'text',
-                'id' => 'user_nickname',
-                'name' => 'user_nickname',
-                'field' => 'user_nickname',
-            ],
-            [
-                'type' => 'select',
-                'id' => 'user_role',
-                'name' => 'user_role',
-                'field' => 'user_role',
-                'options' => $options
-            ],
-            [
-                'type' => 'text',
-                'id' => 'user_firstname',
-                'name' => 'user_firstname',
-                'field' => 'user_firstname',
-            ],
-            [
-                'type' => 'text',
-                'id' => 'user_lastname',
-                'name' => 'user_lastname',
-                'field' => 'user_lastname',
-            ],
-            [
-                'type' => 'email',
-                'id' => 'user_email',
-                'name' => 'user_email',
-                'field' => 'user_email',
-            ],
-            [
-                'type' => 'password',
-                'id' => 'user_password',
-                'name' => 'user_password',
-                'field' => 'user_password',
-            ],
+            (new Elements('Enter user nickname', 'text', 'user_nickname'))->createInput(),
+            (new Elements('Select user role', 'select', 'user_role'))->createSelect($options),
+            (new Elements('Enter user first name', 'text', 'user_firstname'))->createInput(),
+            (new Elements('Enter user last name', 'text', 'user_lastname'))->createInput(),
+            (new Elements('Enter user email', 'email', 'user_email'))->createInput(),
+            (new Elements('Enter user password', 'password', 'user_password'))->createInput(),
         ];
     }
 }

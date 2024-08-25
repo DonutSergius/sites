@@ -2,21 +2,11 @@
 
 namespace Sites\Form;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require PROJECT_ROOT . '/vendor/autoload.php';
-
 use Sites\Class\Form;
+use Sites\Class\Elements;
 
-/**
- * Create form.
- * 
- * Require Class Form.
- */
 class LoginUserForm
 {
-    /**
-     * Function to build form.
-     */
     public function buildForm()
     {
         $nameForm = 'login_user_form';
@@ -25,7 +15,7 @@ class LoginUserForm
 
         $inputs = $this->getInputsElements();
 
-        $loader = new \Twig\Loader\FilesystemLoader(PROJECT_ROOT . '/templates/');
+        $loader = new \Twig\Loader\FilesystemLoader('templates/');
         $twig = new \Twig\Environment($loader);
 
         $login_user_form = new Form($nameForm, $action, $inputs, $scripts);
@@ -33,24 +23,11 @@ class LoginUserForm
         return $twig->render('form.twig.html', $login_user_form->toArray());
     }
 
-    /**
-     * Function to get elements in form.
-     */
     private function getInputsElements()
     {
         return [
-            [
-                'type' => 'text',
-                'id' => 'user_nickname',
-                'name' => 'user_nickname',
-                'field' => 'user_nickname',
-            ],
-            [
-                'type' => 'password',
-                'id' => 'user_password',
-                'name' => 'user_password',
-                'field' => 'user_password',
-            ],
+            (new Elements('Your nickname', 'text', 'user_nickname'))->createInput(),
+            (new Elements('Password', 'password', 'user_password'))->createInput(),
         ];
     }
 }

@@ -1,7 +1,8 @@
 <?php
 header('Content-Type: application/json');
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once  PROJECT_ROOT . '/db_config.php';
+
+use Sites\Services\DBService;
+
 
 session_start();
 
@@ -36,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function loadSession($conn, $username)
 {
+    $conn = (new DBService)->getDBConf();
     $sql = 'SELECT user_id, user_nickname, user_role FROM user_info WHERE user_nickname = ?';
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $username);
@@ -60,6 +62,7 @@ function checkUserPassword($user_password, $hashed_password)
 
 function checkUserNickname($conn, $user_nickname)
 {
+    $conn = (new DBService)->getDBConf();
     $sql = "SELECT user_password FROM user WHERE user_nickname = ?";
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, "s", $user_nickname);

@@ -42,7 +42,7 @@ if (isset($pages[$pageKey])) {
     return;
 }
 
-$linksHtml = $twig->render('links.twig.html', ['links' => (new Sites\Links)->buildLinks(), 'session' => $_SESSION]);
+$linksHtml = $twig->render('links.twig.html', ['links' => (new Sites\Links)->buildMainLinks(), 'session' => $_SESSION]);
 $titleHtml = $twig->render('page-title.twig.html', ['title' => $page->getTitle()]);
 $contentHtml = $twig->render('page-content.twig.html', ['contents' => $page->getContent()]);
 $sidebarHtml = $twig->render('page-sidebar.twig.html', ['sidebar' => $page->getSidebar()]);
@@ -93,6 +93,16 @@ function getPagesList()
         'create-role' => [
             'function' => function () {
                 return (new Page\CreateRolePage())->buildPage();
+            },
+        ],
+        'create-certificate' => [
+            'function' => function () {
+                return (new Page\CreateCertificatePage())->buildPage();
+            },
+        ],
+        'approval-vacation' => [
+            'function' => function () {
+                return (new Page\ApprovalVacationPage())->buildPage();
             },
         ],
     ];

@@ -2,20 +2,12 @@
 
 namespace Sites\Form;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-
 use Sites\Class\Form;
+use Sites\Class\Elements;
+use Sites\Services\DBService;
 
-/**
- * Create form.
- * 
- * Require Class Form.
- */
 class CreateRoleForm
 {
-    /**
-     * Function to build form.
-     */
     public function buildForm()
     {
         $nameForm = 'cretae_role_form';
@@ -24,12 +16,34 @@ class CreateRoleForm
 
         $inputs = $this->getInputsElements();
 
-        $loader = new \Twig\Loader\FilesystemLoader(PROJECT_ROOT . '/templates/');
+        $loader = new \Twig\Loader\FilesystemLoader('templates/');
         $twig = new \Twig\Environment($loader);
 
         $create_role_form = new Form($nameForm, $action, $inputs, $scripts);
 
         return $twig->render('form.twig.html', $create_role_form->toArray());
+    }
+
+    public function validationForm()
+    {
+        $response = [
+            'error' => '',
+            'confirm' => '',
+        ];
+
+        $roleName = $_POST['role_name'] ?? null;
+        $roleVacationDay = $_POST['role_vacation_day'] ?? null;
+
+        $conn = (new DBService)->getDBConf();
+        $sql = 'INSERT INTO role (role_name, role_vacation_day) VALUES (?, ?)';
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "si", $roleName, $roleVacationDay);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            $response['confirm'] = "New role created";
+        }
+
+        echo json_encode($response);
     }
 
     /**
@@ -38,19 +52,8 @@ class CreateRoleForm
     private function getInputsElements()
     {
         return [
-            [
-                'type' => 'text',
-                'id' => 'role_name',
-                'name' => 'role_name',
-                'field' => 'role_name',
-            ],
-            [
-                'type' => 'number',
-                'id' => 'role_vacation_day',
-                'name' => 'role_vacation_day',
-                'field' => 'role_vacation_day',
-            ],
-
+            (new Elements('Enter role name', 'text', 'role_name'))->createInput(),
+            (new Elements('Enter nubmer of vacation days', 'number', 'role_vacation_day'))->createInput(),
         ];
     }
 }

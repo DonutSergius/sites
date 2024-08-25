@@ -2,58 +2,52 @@
 
 namespace Sites\Table;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once PROJECT_ROOT . '/db_config.php';
-
 use Sites\Class\Table;
 
-/**
- * Create vacation table.
- * 
- * Require Class table
- */
 class VacationTable
 {
-
-    /**
-     * Function to build table.
-     */
-    function buildVacationTable($sql, $type = 1)
+    function buildVacationTable($result)
     {
         $table_name = 'vacation-list';
-        $header_lables = $this->getHeaderLables($type);
-        if ($type == 2) {
+        $vacation_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        if (!empty($vacation_data)) {
+            $first_row = $vacation_data[0];
+            $header_labels = $this->generateHeaderLabels(array_keys($first_row));
+            $body_rows = $this->getBodyRows($vacation_data, array_keys($first_row));
+        } else {
+            $header_labels = [];
+            $body_rows = [];
         }
 
-        $conn = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-        $result = mysqli_query($conn, $sql);
-        $vacation_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_close($conn);
+        $pageKey = $_GET['page'] ?? 'home';
 
-        $body_rows = $this->getBodyRows($vacation_data);
+        if ($pageKey == 'my-vacation-request') {
+            $header_labels[] = [
+                'title' => 'Cancel',
+                'machine_name' => 'cancel'
+            ];
+        }
 
-        $vacationTable = new Table($table_name, $header_lables, $body_rows);
-        $loader = new \Twig\Loader\FilesystemLoader(PROJECT_ROOT . '/templates/');
+        $vacationTable = new Table($table_name, $header_labels, $body_rows);
+        $loader = new \Twig\Loader\FilesystemLoader('templates/');
         $twig = new \Twig\Environment($loader);
 
         return $twig->render('table.twig.html', $vacationTable->toArray());
     }
 
-    /**
-     * Get table rows.
-     */
-    function getBodyRows($vacation_data)
+    function getBodyRows($vacation_data, $columns)
     {
         $body_rows = [];
         $element_id = 0;
         foreach ($vacation_data as $row) {
             $body_row = [];
-            $date_type = $row['vacation_date_type'];
+            if (isset($row['vacation_date_type'])) {
+                $date_type = $row['vacation_date_type'];
+            } else $date_type = NULL;
 
-            foreach ($row as $column_name => $value) {
-                if ($column_name == 'vacation_user_id') {
-                    continue;
-                }
+            foreach ($columns as $column_name) {
+                $value = $row[$column_name];
 
                 if (
                     $date_type == 'fullDay' &&
@@ -64,6 +58,7 @@ class VacationTable
 
                 if ($column_name == 'vacation_id') {
                     $element_id = $value;
+                    continue;
                 }
 
                 $body_row[] = [
@@ -72,80 +67,53 @@ class VacationTable
                 ];
             }
 
-            $body_row[] = [
-                'class' => 'view-element',
-                'element' => 'vacation',
-                'id' => $element_id,
-                'value' => 'View',
-            ];
+            $pageKey = $_GET['page'] ?? 'home';
+
+            if ($pageKey == 'my-vacation-request') {
+                $body_row[] = [
+                    'class' => 'workflow',
+                    'element' => 'vacation',
+                    'action' => 'ddas/sad',
+                    'id' => $element_id,
+                    'value' => 'Cancel',
+                ];
+            }
 
             $body_rows[] = $body_row;
         }
 
-        return  $body_rows;
+        return $body_rows;
     }
 
-    /**
-     * Function to convert time.
-     */
     function formatDate($date_value, $format = 'Y-m-d')
     {
         $date = new \DateTime($date_value);
         return $date->format($format);
     }
 
-    /**
-     * Get table header columns.
-     */
-    function getHeaderLables($type)
+    function generateHeaderLabels($columns)
     {
-        $labels = [
-            [
-                'class' => 'id',
-                'name' => 'Id',
-            ],
+        $all_headers = [
+            'user' => 'User',
+            'vacation_type' => 'Type',
+            'vacation_date_type' => 'Time type',
+            'vacation_date_start' => 'Date start',
+            'vacation_date_end' => 'Date end',
+            'vacation_reason' => 'Reason',
+            'vacation_status' => 'Status',
+            'vacation_approval' => 'Approval',
         ];
 
-        if ($type != 2) {
-            $labels[] = [
-                'class' => 'user_created',
-                'name' => 'User',
-            ];
+        $header_labels = [];
+        foreach ($columns as $column) {
+            if (isset($all_headers[$column])) {
+                $header_labels[] = [
+                    'title' => $all_headers[$column],
+                    'machine_name' => $column
+                ];
+            }
         }
 
-        $additional_labels = [
-            [
-                'class' => 'vacation_type',
-                'name' => 'Type',
-            ],
-            [
-                'class' => 'vacation_time',
-                'name' => 'Time',
-            ],
-            [
-                'class' => 'date_start',
-                'name' => 'Start',
-            ],
-            [
-                'class' => 'date_end',
-                'name' => 'End',
-            ],
-            [
-                'class' => 'vacation_reason',
-                'name' => 'Reason',
-            ],
-            [
-                'class' => 'vacation_approval',
-                'name' => 'Approval',
-            ],
-            [
-                'class' => 'view-element',
-                'name' => 'View',
-            ],
-        ];
-
-        $labels = array_merge($labels, $additional_labels);
-
-        return $labels;
+        return $header_labels;
     }
 }

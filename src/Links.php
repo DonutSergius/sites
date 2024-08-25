@@ -4,18 +4,18 @@ namespace Sites;
 
 class Links
 {
-    public function buildLinks()
+    public function buildMainLinks()
     {
         $currentPage = basename($_SERVER['REQUEST_URI']);
+
+        if (empty($_SESSION['user_role'])) {
+            return null;
+        }
 
         $links = [
             ['url' => 'home', 'title' => 'Home', 'tag' => 'all'],
             ['url' => 'create-vacation', 'title' => 'Create vacation', 'tag' => 'all'],
         ];
-
-        if (empty($_SESSION['user_role'])) {
-            return null;
-        }
 
         switch ($_SESSION['user_role']) {
             case 'admin':
@@ -27,13 +27,33 @@ class Links
             case 'TeamLead':
                 $links = array_merge($links, $this->getTLLinks($_SESSION['user_role']));
                 break;
-            default:
-                $links = array_merge($links, $this->getStandartLinks($_SESSION['user_role']));
-                break;
         }
+
+        $links = array_merge($links, $this->getUserCabinetLinks());
 
         foreach ($links as &$link) {
             $link['active'] = $link['url'] === $currentPage;
+        }
+
+        return $links;
+    }
+
+    public function buildUserLinks()
+    {
+        return $this->getStandartLinks($_SESSION['user_role']);
+    }
+
+    private function getUserCabinetLinks()
+    {
+        if (isset($_SESSION['user_nickname'])) {
+            $links = [
+                ['url' => 'user-cabinet', 'title' => $_SESSION['user_nickname'], 'tag' => 'all'],
+                ['url' => 'logout', 'title' => 'Logout', 'tag' => 'all'],
+            ];
+        } else {
+            $links = [
+                ['url' => 'login', 'title' => 'Login', 'tag' => 'all'],
+            ];
         }
 
         return $links;
@@ -50,17 +70,17 @@ class Links
 
     private function getPMLinks()
     {
-        return array_merge($this->getStandartLinks('PM'), [
+        return [
             ['url' => 'approval-vacation', 'title' => 'Approval vacation', 'tag' => 'PM'],
-        ]);
+        ];
     }
 
     private function getTLLinks($user_role)
     {
-        return array_merge($this->getStandartLinks($user_role), [
+        return [
             ['url' => 'approval-vacation', 'title' => 'Approval vacation', 'tag' => $user_role],
             ['url' => 'create-certificate', 'title' => 'Create certificate', 'tag' => $user_role],
-        ]);
+        ];
     }
 
     private function getStandartLinks($user_role)
@@ -68,7 +88,6 @@ class Links
         return [
             ['url' => 'my-vacation-request', 'title' => 'My vacation request', 'tag' => $user_role],
             ['url' => 'my-operation', 'title' => 'My operation', 'tag' => $user_role],
-            ['url' => 'cancel-vacation', 'title' => 'Cancel vacation', 'tag' => $user_role],
         ];
     }
 }

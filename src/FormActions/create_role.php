@@ -1,11 +1,13 @@
 <?php
-header('Content-Type: application/json');
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once  PROJECT_ROOT . '/db_config.php';
 
-session_start();
+use Sites\Form\CreateRoleForm;
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+$handler = new CreateRoleForm();
+$handler->validationForm();
+
+/* if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $response = [
         'error' => '',
         'confirm' => '',
@@ -14,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $roleName = $_POST['role_name'] ?? null;
     $roleVacationDay = $_POST['role_vacation_day'] ?? null;
 
+    $conn = (new DBService)->getDBConf();
     $sql = 'INSERT INTO role (role_name, role_vacation_day) VALUES (?, ?)';
-
     if ($stmt = mysqli_prepare($conn, $sql)) {
         mysqli_stmt_bind_param($stmt, "si", $roleName, $roleVacationDay);
         mysqli_stmt_execute($stmt);
@@ -24,4 +26,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     echo json_encode($response);
-}
+} */

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once  PROJECT_ROOT . '/db_config.php';
+
+use Sites\Services\DBService;
 
 session_start();
 
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (empty($response['error'])) {
-            $insert_sql = "INSERT INTO users (user_nickname, user_role, user_first_name, user_last_name, user_email, user_password) VALUES (?, ?, ?, ?, ?, ?)";
+            $insert_sql = "INSERT INTO user (user_nickname, user_role, user_first_name, user_last_name, user_email, user_password) VALUES (?, ?, ?, ?, ?, ?)";
             if ($stmt = mysqli_prepare($conn, $insert_sql)) {
                 mysqli_stmt_bind_param($stmt, "sissss", $user_nickname, $user_role, $user_firstname, $user_lastname, $user_email, $user_password);
 
@@ -58,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 function checkUserNickname($nickname)
 {
-    $conn = getDBConf();
-    $check_sql = "SELECT * FROM users WHERE user_nickname = ?";
+    $conn = (new DBService)->getDBConf();
+    $check_sql = "SELECT * FROM user WHERE user_nickname = ?";
     if ($stmt = mysqli_prepare($conn, $check_sql)) {
         mysqli_stmt_bind_param($stmt, "s", $nickname);
         mysqli_stmt_execute($stmt);
@@ -76,7 +76,7 @@ function checkUserNickname($nickname)
 function checkUserEmail($email)
 {
     $conn = getDBConf();
-    $check_sql = "SELECT * FROM users WHERE user_email = ?";
+    $check_sql = "SELECT * FROM user WHERE user_email = ?";
     if ($stmt = mysqli_prepare($conn, $check_sql)) {
         mysqli_stmt_bind_param($stmt, "s", $email);
         mysqli_stmt_execute($stmt);

@@ -2,29 +2,20 @@
 
 namespace Sites\Page;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/sites/config.php';
-require_once PROJECT_ROOT . '/db_config.php';
-
 use Sites\Class\Page;
 use Sites\Table\VacationTable;
+use Sites\Services\DBService;
 
-/**
- * Create home page.
- * 
- * Require Class Page.
- * Require Table table-vacation.
- */
 class HomePage
 {
-    /**
-     * Function build table on page.
-     */
     public function buildPage()
     {
-        $sql = "SELECT * FROM vacation_info ORDER BY vacation_id DESC";
+        $service = new DBService;
+        $labels = ['user, vacation_type', 'vacation_date_type', 'vacation_date_start', 'vacation_date_end', 'vacation_reason'];
+        $data = $service->getData($service->setLabel($labels), 'vacation_info ORDER BY vacation_id DESC');
 
         $content = [
-            ['name' => 'homepage-table', 'content' => (new VacationTable)->buildVacationTable($sql)],
+            ['name' => 'homepage-table', 'content' => (new VacationTable)->buildVacationTable($data)],
         ];
 
         return new Page('Home', $content, '');
