@@ -11,12 +11,12 @@ class ApprovalVacationPage
     public function buildPage()
     {
         $service = new DBService;
-        $label = ["vi.user, vi.vacation_type, vi.vacation_date_type, vi.vacation_date_start, vi.vacation_date_end, vi.vacation_reason"];
-        $data = $service->getData($service->setLabel($label), "vacation_info AS vi 
-            JOIN vacation_request AS v ON v.vacation_id = vi.vacation_id
-            WHERE v.vacation_status = 'Pending'
-            ORDER BY vi.vacation_id DESC");
-
+        $label = ["va.*"];
+        $data = $service->getData($service->setLabel($label), "`vacationtoapproval` as va 
+            JOIN vacation_request as vq 
+            ON vq.vacation_id = va.vacation_id 
+            WHERE vq.vacation_approval = " . $_SESSION['user_id'] . "
+            ORDER BY va.vacation_id DESC");
         $content = [
             ['name' => 'user-table', 'content' => (new VacationTable)->buildVacationTable($data)],
         ];

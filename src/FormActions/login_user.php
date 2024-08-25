@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json');
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Sites\Services\DBService;
 
@@ -16,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['user_password'] ?? null;
 
     if ($username && $password) {
+        $conn = (new DBService)->getDBConf();
         $hashed_password = checkUserNickname($conn, $username);
         if ($hashed_password == $password) {
             $userData = loadSession($conn, $username);

@@ -12,10 +12,19 @@ class MyVacationRequestPage
     public function buildPage()
     {
         $service = new DBService;
-        $label = ["vacation_type, vacation_date_type, vacation_date_start, vacation_date_end, vacation_reason, vacation_status"];
-        $data = $service->getData($service->setLabel($label), "vacation_request WHERE vacation_user_id =" . $_SESSION['user_id'] . " ORDER BY vacation_id DESC");
+        $label = ["uservacationrequest.*"];
+        $data = $service->getData($service->setLabel($label), "`uservacationrequest`
+                    JOIN vacation_request as vq 
+                    ON uservacationrequest.vacation_id = vq.vacation_id 
+                    WHERE vq.vacation_user_id = " . $_SESSION['user_id']);
+
+        $loader = new \Twig\Loader\FilesystemLoader('templates/');
+        $twig = new \Twig\Environment($loader);
+
+        $linksHtml = $twig->render('links.twig.html', ['links' => (new \Sites\Links)->buildUserLinks(), 'session' => $_SESSION]);
 
         $content = [
+            ['name' => 'user-links', 'content' => $linksHtml],
             ['name' => 'user-table', 'content' => (new VacationTable)->buildVacationTable($data)],
         ];
 

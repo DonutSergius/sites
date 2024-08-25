@@ -28,6 +28,12 @@ class VacationTable
                 'machine_name' => 'cancel'
             ];
         }
+        if ($pageKey == 'approval-vacation') {
+            $header_labels[] = [
+                'title' => 'Action',
+                'machine_name' => 'action'
+            ];
+        }
 
         $vacationTable = new Table($table_name, $header_labels, $body_rows);
         $loader = new \Twig\Loader\FilesystemLoader('templates/');
@@ -73,9 +79,25 @@ class VacationTable
                 $body_row[] = [
                     'class' => 'workflow',
                     'element' => 'vacation',
-                    'action' => 'ddas/sad',
+                    'action' => 'cancel',
                     'id' => $element_id,
                     'value' => 'Cancel',
+                ];
+            }
+            if ($pageKey == 'approval-vacation') {
+                $body_row[] = [
+                    'class' => 'workflow',
+                    'element' => 'vacation',
+                    'action' => 'approve',
+                    'id' => $element_id,
+                    'value' => 'Approve',
+                ];
+                $body_row[] = [
+                    'class' => 'workflow',
+                    'element' => 'vacation',
+                    'action' => 'disapprove',
+                    'id' => $element_id,
+                    'value' => 'Disapprove',
                 ];
             }
 
@@ -94,7 +116,7 @@ class VacationTable
     function generateHeaderLabels($columns)
     {
         $all_headers = [
-            'user' => 'User',
+            'user_nickname' => 'User',
             'vacation_type' => 'Type',
             'vacation_date_type' => 'Time type',
             'vacation_date_start' => 'Date start',
