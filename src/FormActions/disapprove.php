@@ -9,12 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($id !== NULL) {
         $conn = (new DBService)->getDBConf();
-        $sql = "UPDATE vacation_request SET vacation_status = 'Canceled' WHERE vacation_id = ?";
+        $sql = "UPDATE vacation_request SET vacation_status = 'Disapproved' WHERE vacation_id = ?";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "i", $id);
             if (mysqli_stmt_execute($stmt)) {
-                header('Location: /sites/my-vacation-request');
+                header('Location: /sites/approval-vacation');
                 exit;
             } else {
                 echo "Error: " . mysqli_stmt_error($stmt);

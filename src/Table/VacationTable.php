@@ -88,14 +88,14 @@ class VacationTable
                 $body_row[] = [
                     'class' => 'workflow',
                     'element' => 'vacation',
-                    'action' => 'approve',
+                    'action' => '/sites/src/FormActions/approve.php',
                     'id' => $element_id,
                     'value' => 'Approve',
                 ];
                 $body_row[] = [
                     'class' => 'workflow',
                     'element' => 'vacation',
-                    'action' => 'disapprove',
+                    'action' => '/sites/src/FormActions/disapprove.php',
                     'id' => $element_id,
                     'value' => 'Disapprove',
                 ];
