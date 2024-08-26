@@ -31,7 +31,7 @@ class Certificate
     {
         $current_datetime = new DateTime();
         if ($certificate['certificate_date_end'] < $current_datetime) {
-            $this->updateCertificate(0, 'Unactive', $certificate['certificate_id']);
+            $this->bornCertificate(0, 'Unactive', $certificate['certificate_id']);
             $operation_name = "Born Certificate";
             (new Operation)->setOperation(
                 $certificate['certificate_user_id'],
@@ -95,7 +95,36 @@ class Certificate
         );
     }
 
-    public function updateCertificate($count_days, $status, $certificate_id)
+    public function updateCertificate($days_lost, $certificate_id)
+    {
+        $current_date = new DateTime();
+        $certificate = (new DBService)->getData((new DBService)->setLabel([]), "certificate WHERE certificate_id = " . $certificate_id);
+        $math_days = $certificate['certificate_count_days'] - $days_lost;
+        $conn = (new DBService)->getDBConf();
+        $sql = "UPDATE `certificate` 
+        SET certificate_count_days = ? WHERE certificate_id = ?";
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "isi", $days_lost, $certificate_id);
+            if (!mysqli_stmt_execute($stmt)) {
+                echo "Error: " . mysqli_stmt_error($stmt);
+            }
+            mysqli_stmt_close($stmt);
+        } else {
+            echo "Error: " . mysqli_error($conn);
+        }
+
+        $operation_name = "Vacation";
+        (new Operation)->setOperation(
+            $certificate['certificate_user_id'],
+            $operation_name,
+            $certificate['certificate_count_days'],
+            $math_days,
+            $days_lost,
+            $current_date,
+        );
+    }
+
+    public function bornCertificate($count_days, $status, $certificate_id)
     {
         $conn = (new DBService)->getDBConf();
         $sql = "UPDATE `certificate` 

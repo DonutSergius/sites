@@ -1,49 +1,7 @@
-@import '_variables.scss';
-
-form {
-    .form-field{
-        input, textarea, select{
-            font-size: $node-font-size;
-            width: 50%;
-            margin: 0 auto;
-            margin-bottom: 20px;
-            padding: 5px 10px;
-            text-align: center;
-            border: 3px solid $blue;
-            box-shadow: 0 0 15px $blue;
-            background-color: inherit;
-            color: $lighter-blue;
-            &:focus{
-                box-shadow: 0 0 25px $light-blue;
-                border: 3px solid $blue;
-
-            }
-            &:hover{
-                box-shadow: 0 0 25px $light-blue;
-            }
-        }
-
-        textarea{
-            resize: vertical;
-        }
-
-        select{
-            option{
-                color: $dark-blue;
-            }
-        }
-        .field- {
-            &input, &textarea, &select, &text, &password{
-                display: flex;
-                justify-content: center;
-            }
-        }
-        .submit-button{
-            width: 50%;
-            margin: 0 auto;
-            input{
-                width: 100%;
-            }
-        }
+.form-field {
+    width: max-content;
+    margin: 0 auto;
+    label {
+        display: block;
     }
 }

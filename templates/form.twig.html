@@ -9,7 +9,7 @@
     <div class="form-field">
         {% for input in inputs %}
         <div class="field-{{input.field}} field-{{ input.type }}">
-            <label id="field-{{input.id}}" class="field-title-element">{{ input.title }}</label>
+            <label id="field-{{input.id}}" for="{{ input.id }}" class="field-title-element">{{ input.title }}</label>
             {% if input.type == 'textarea' %}
             <textarea
                 id="{{ input.id }}"

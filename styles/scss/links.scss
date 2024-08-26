@@ -1,0 +1,15 @@
+.main-links {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    li {
+        list-style: none;
+        margin-left: 20px;
+        &:first-child {
+            margin-left: 0;
+        }
+        a.active {
+            text-decoration: underline;
+        }
+    }
+}

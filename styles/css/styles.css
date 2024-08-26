@@ -1,188 +1,52 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #070a35;
-}
-
-pre{
-  color:white
-}
-
-form .form-field input, form .form-field textarea, form .form-field select {
-  font-size: 18px;
-  width: 50%;
-  margin: 0 auto;
-  margin-bottom: 20px;
-  padding: 5px 10px;
-  text-align: center;
-  border: 3px solid #535DE0;
-  box-shadow: 0 0 15px #535DE0;
-  background-color: inherit;
-  color: #EFF4FC;
-}
-form .form-field input:focus, form .form-field textarea:focus, form .form-field select:focus {
-  box-shadow: 0 0 25px #9EB7E0;
-  border: 3px solid #535DE0;
-}
-form .form-field input:hover, form .form-field textarea:hover, form .form-field select:hover {
-  box-shadow: 0 0 25px #9EB7E0;
-}
-form .form-field textarea {
-  resize: vertical;
-}
-form .form-field select option {
-  color: #070a35;
-}
-form .form-field .field-input, form .form-field .field-textarea, form .form-field .field-select, form .form-field .field-text, form .form-field .field-password {
-  display: flex;
-  justify-content: center;
-}
-form .form-field .submit-button {
-  width: 50%;
+.form-field {
+  width: max-content;
   margin: 0 auto;
 }
-form .form-field .submit-button input {
-  width: 100%;
+.form-field label {
+  display: block;
 }
-header .top-nav-bar {
+.main-links {
   margin: 20px 0;
-  padding: 15px 10px;
-  box-shadow: 0 0 30px #9EB7E0;
-  border-radius: 20px;
-  border-top: 3px solid #535DE0;
-  border-bottom: 3px solid #535DE0;
-}
-header .main-menu ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
   display: flex;
+  flex-wrap: wrap;
 }
-header .main-menu ul li {
-  margin: 5px 10px;
-  font-size: 18px;
+.main-links li {
+  list-style: none;
+  margin-left: 20px;
 }
-header .main-menu ul li a {
+.main-links li:first-child {
+  margin-left: 0;
+}
+.main-links li a.active {
+  text-decoration: underline;
+}
+* {
+  margin: 0;
+  padding: 0;
   text-decoration: none;
 }
-header .main-menu ul li a:hover {
-  text-shadow: 0 0 10px #9EB7E0, 0 0 20px #9EB7E0;
-  transition: text-shadow 0.3s ease;
+.page_title {
+  text-align: center;
+  margin-bottom: 20px;
 }
-header .main-menu ul li a.active {
-  text-shadow: 0 0 10px #535DE0, 0 0 20px #535DE0;
-}
-.message-container {
-  margin: 40px 0;
-  width: 100%;
-}
-.message-container .message {
-  width: 75%;
+.table-vacation-list {
   margin: 0 auto;
 }
-.message-container .message .message-error, .message-container .message .message-confirm {
-  padding: 20px 15px;
-  width: 100%;
-  border-radius: 20px;
-}
-.message-container .message .message-error {
-  background-color: rgb(149, 10, 10);
-  box-shadow: 0 0 30px rgb(211, 29, 29);
-}
-.message-container .message .message-confirm {
-  background-color: rgb(15, 96, 15);
-  box-shadow: 0 0 30px rgb(34, 207, 34);
-}
-header a {
-  font-size: 18px;
-  color: #9EB7E0;
-}
-
-.content {
-  max-width: 1440px;
-  padding: 0 15px;
-  box-sizing: border-box;
-  margin: 0 auto;
-  color: #9EB7E0;
-  font-size: 18px;
-}
-.content a {
-  font-size: 18px;
-  color: #9EB7E0;
-}
-.content .title h1 {
-  font-size: 28px;
-  text-shadow: 0 0 30px #9EB7E0, 0 0 40px #9EB7E0;
-  margin: 30px 0;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
+.table-vacation-list thead th, .table-vacation-list thead td, .table-vacation-list tbody th, .table-vacation-list tbody td {
   text-align: center;
+  padding: 0 20px;
 }
-.content .title h1::before, .content .title h1::after {
-  content: "";
-  flex: 1;
-  border-bottom: 3px solid #535DE0;
-  box-shadow: 0 0 20px #9EB7E0;
+.table-vacation-list thead th.td-workflow, .table-vacation-list thead td.td-workflow, .table-vacation-list tbody th.td-workflow, .table-vacation-list tbody td.td-workflow {
+  padding: 0;
 }
-.content .title h1:not(:empty)::before {
-  margin-right: 0.5em;
+.table-vacation-list thead th.td-workflow button, .table-vacation-list thead td.td-workflow button, .table-vacation-list tbody th.td-workflow button, .table-vacation-list tbody td.td-workflow button {
+  padding: 10px 15px;
+  background-color: initial;
 }
-.content .title h1:not(:empty)::after {
-  margin-left: 0.5em;
+.table-vacation-list thead th.td-workflow button:hover, .table-vacation-list thead td.td-workflow button:hover, .table-vacation-list tbody th.td-workflow button:hover, .table-vacation-list tbody td.td-workflow button:hover {
+  cursor: pointer;
+  background-color: aqua;
 }
-
-@media (max-width: 1440px) {
-  .content {
-    max-width: 1280px;
-  }
-}
-@media (max-width: 1280px) {
-  .content {
-    max-width: 1024px;
-  }
-}
-@media (max-width: 1024px) {
-  .content {
-    max-width: 800px;
-  }
-}
-@media (max-width: 800px) {
-  .content {
-    max-width: 700px;
-  }
-}
-@media (max-width: 700px) {
-  .content {
-    max-width: 600px;
-  }
-}
-@media (max-width: 600px) {
-  .content {
-    max-width: 320px;
-  }
-}
-.container-table-vacation-list {
-  margin: 25px 0;
-}
-.container-table-vacation-list table {
-  box-shadow: 0 0 20px #9EB7E0;
-  color: #9EB7E0;
-  background-color: #070a35;
-  width: 100%;
-  border-collapse: collapse;
-}
-.container-table-vacation-list table thead {
-  color: #070a35;
-  background-color: #535DE0;
-}
-.container-table-vacation-list table tr, .container-table-vacation-list table td, .container-table-vacation-list table th {
-  text-align: center;
-  border: 1px solid;
-  padding: 10px;
-}
-.container-table-vacation-list table tr.td-vacation_reason, .container-table-vacation-list table td.td-vacation_reason, .container-table-vacation-list table th.td-vacation_reason {
-  text-align: left;
+.table-vacation-list thead th {
+  padding-bottom: 10px;
 }
