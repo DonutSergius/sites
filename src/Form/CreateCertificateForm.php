@@ -5,6 +5,7 @@ namespace Sites\Form;
 use Sites\Class\Form;
 use Sites\Class\Elements;
 use Sites\Services\DBService;
+use Sites\Services\Operation;
 use DateTime;
 
 class CreateCertificateForm
@@ -129,6 +130,10 @@ class CreateCertificateForm
             mysqli_stmt_execute($stmt);
         }
 
+        $op_name = "Gived Bonus Certificate";
+        $count_before = 0;
+        (new Operation)->setOperation($user_id, $op_name, $count_before, $count_days, $count_days, $start);
+        /* 
         $sql_op = "INSERT INTO operation (
             operation_user_id, operation_name, operation_count_before, operation_count, operation_count_after, operation_date)
             VALUES (?, ?, ?, ?, ?, ?)";
@@ -148,7 +153,7 @@ class CreateCertificateForm
             mysqli_stmt_execute($stmt_op);
         }
 
-        mysqli_close($conn);
+        mysqli_close($conn); */
 
         $response['confirm'] = 'Bonus Certificate created';
 

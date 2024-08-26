@@ -59,6 +59,29 @@ class CreateVacationForm
         $approval = $_POST['approval'] ?? null;
         $reason = $_POST['reason'] ?? null;
 
+        $admin_user_id = NULL;
+
+        if ($approval) {
+            $conn = (new DBService)->getDBConf();
+            $sql = "SELECT user_id FROM `user` WHERE user_nickname = ? AND (user_role = '2' OR user_role = '3')";
+
+            if ($stmt = mysqli_prepare($conn, $sql)) {
+                mysqli_stmt_bind_param($stmt, "s", $approval);
+                mysqli_stmt_execute($stmt);
+
+                $result = mysqli_stmt_get_result($stmt);
+
+                if ($row = $result->fetch_assoc()) {
+                    $admin_user_id = $row['user_id'];
+                } else {
+                    $admin_user_id = NULL;
+                    $response['error'] = 'User does not exist or Not Administrator';
+                }
+
+                mysqli_stmt_close($stmt);
+            }
+        }
+
         if ($vacationType === "paid") {
             if ($dateStart && $dateEnd && $approval && $reason) {
                 $vacationTime = 'fullDay';
@@ -84,8 +107,10 @@ class CreateVacationForm
                 }
             }
         }
-        if (empty($response['error'])) {
-            $response = $this->submitForm();
+        if (empty($response['error']) && $admin_user_id !== NULL) {
+            $response = $this->submitForm($admin_user_id);
+        } else {
+            $response['error'] = 'User does not exist or Not Administrator';
         }
 
         if (isset($response['error'])) {
@@ -95,7 +120,7 @@ class CreateVacationForm
         echo json_encode($response);
     }
 
-    private function submitForm()
+    private function submitForm($admin_user_id)
     {
         session_start();
 
@@ -141,7 +166,7 @@ class CreateVacationForm
                 $date_end,
                 $reason,
                 $status,
-                $approval
+                $admin_user_id
             );
 
             if (mysqli_stmt_execute($stmt)) {
