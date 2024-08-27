@@ -9,9 +9,10 @@ class DBService
         return  mysqli_connect('localhost', 'root', '', 'sites');;
     }
 
-    public function getData($query, $table)
+    public function getData($select_labels, $table, $conditions = "")
     {
-        $sql = $query . $table;
+        $select_labels = $this->setLabel($select_labels);
+        $sql = "SELECT " . $select_labels . " FROM " . $table . $conditions;
         $conn = $this->getDBConf();
         $result = mysqli_query($conn, $sql);
         mysqli_close($conn);
@@ -19,18 +20,16 @@ class DBService
         return $result;
     }
 
-    public function setLabel($labels)
+    private function setLabel($labels)
     {
-        if (empty($labels)) {
-            return "SELECT * FROM ";
-        }
         $fields = implode(', ', $labels);
-        $sql = "SELECT $fields FROM ";
-        return $sql;
+        return $fields;
     }
 
-    private function setData($table, array $data)
+    public function setData($select_labels, $table, $data)
     {
+        $select_labels = $this->setLabel($select_labels);
+        $sql = "INSERT INTO " . $table . "( " . $select_labels . " )";
         return NULL;
     }
 }

@@ -12,11 +12,22 @@ class Certificate
     {
         $service = new DBService;
         $data = $service->getData(
-            $service->setLabel([]),
+            ["*"],
             "certificate WHERE certificate_status = 'Active' AND certificate_user_id = " . $user_id
         );
 
         return $data;
+    }
+
+    public function getUserBalance($user_id)
+    {
+        $certificates = (new Certificate)->getActiveCertificates($user_id);
+        $balance = 0;
+        foreach ($certificates as $certificate) {
+            $balance += $certificate['certificate_count_days'];
+        }
+
+        return $balance;
     }
 
     public function updateUserCertificate($user_id)
@@ -52,7 +63,7 @@ class Certificate
         $conn = (new DBService)->getDBConf();
 
         $vacation_day = (new DBService)->getData(
-            (new DBService)->setLabel(["r.role_vacation_day"]),
+            ["r.role_vacation_day"],
             "user JOIN role as r ON user.user_role = r.role_id WHERE user.user_id = " . $certificate['certificate_user_id']
         );
 
@@ -98,7 +109,7 @@ class Certificate
     public function updateCertificate($days_lost, $certificate_id)
     {
         $current_date = new DateTime();
-        $certificate = (new DBService)->getData((new DBService)->setLabel([]), "certificate WHERE certificate_id = " . $certificate_id);
+        $certificate = (new DBService)->getData(["*"], "certificate WHERE certificate_id = " . $certificate_id);
         $math_days = $certificate['certificate_count_days'] - $days_lost;
         $conn = (new DBService)->getDBConf();
         $sql = "UPDATE `certificate` 

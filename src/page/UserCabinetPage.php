@@ -4,6 +4,7 @@ namespace Sites\Page;
 
 use Sites\Class\Page;
 use Sites\Services\DBService;
+use Sites\Services\Certificate;
 
 class UserCabinetPage
 {
@@ -14,6 +15,8 @@ class UserCabinetPage
 
         $userInfo = $this->getUserInfo((new DBService)->getDBConf(), $_SESSION['user_nickname']);
         $linksHtml = $twig->render('links.twig.html', ['links' => (new \Sites\Links)->buildUserLinks(), 'session' => $_SESSION]);
+
+        $balance = (new Certificate)->getUserBalance($_SESSION['user_id']);
 
         if ($userInfo === false) {
             $content = [
@@ -26,6 +29,8 @@ class UserCabinetPage
                 ['name' => 'user-last-name', 'content' => 'Last Name: ' . $userInfo['user_last_name']],
                 ['name' => 'user-created', 'content' => 'Created: ' . $userInfo['user_created']],
                 ['name' => 'user-email', 'content' => 'Email: ' . $userInfo['user_email']],
+                ['name' => 'user-balance', 'content' => 'Balance: ' . $balance],
+
             ];
         }
 

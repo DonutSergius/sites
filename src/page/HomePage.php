@@ -12,8 +12,7 @@ class HomePage
     {
         $service = new DBService;
         $labels = ['hv.*'];
-        $data = $service->getData($service->setLabel($labels), '`homepageview` as hv 
-                JOIN vacation_request as vr 
+        $data = $service->getData($labels, '`homepageview` as hv ', 'JOIN vacation_request as vr 
                 ON hv.vacation_id = vr.vacation_id 
                 WHERE vr.vacation_status = "Approved" AND TIMESTAMP(hv.vacation_date_start) > CURRENT_TIMESTAMP
                 ORDER BY vacation_id DESC');

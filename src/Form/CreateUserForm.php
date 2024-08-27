@@ -28,7 +28,7 @@ class CreateUserForm
     {
         $service = new DBService;
 
-        $data = $service->getData($service->setLabel([]), 'role');
+        $data = $service->getData(["*"], 'role');
 
         $options = [];
         while ($row = mysqli_fetch_assoc($data)) {

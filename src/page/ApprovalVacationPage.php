@@ -15,8 +15,7 @@ class ApprovalVacationPage
         $current_time = new DateTime();
         $current_time_format = $current_time->format("Y-m-d H:i:s");
         $label = ["va.*"];
-        $data = $service->getData($service->setLabel($label), "`vacationtoapproval` as va 
-            JOIN vacation_request as vq 
+        $data = $service->getData($label, "`vacationtoapproval` as va ", "JOIN vacation_request as vq 
             ON vq.vacation_id = va.vacation_id 
             WHERE vq.vacation_approval = " . $_SESSION['user_id'] . "
             AND va.vacation_date_start > '" . $current_time_format . "'");

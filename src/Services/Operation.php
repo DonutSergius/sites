@@ -9,7 +9,7 @@ class Operation
     public function getOperation($user_id)
     {
         $conn = (new DBService)->getDBConf();
-        return (new DBService)->getData((new DBService)->setLabel([]), "operation");
+        return (new DBService)->getData(["*"], "operation");
     }
 
     public function setOperation($user_id, $op_name, $count_before, $count_days, $count_after, $start)

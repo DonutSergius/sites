@@ -46,17 +46,6 @@ class CreateVacationForm
         ];
     }
 
-    private function checkUserBalance()
-    {
-        session_start();
-        $certificates = (new Certificate)->getActiveCertificates($_SESSION['user_id']);
-        $sum = 0;
-        foreach ($certificates as $certificate) {
-            $sum += $certificate['certificate_count_days'];
-        }
-        return $sum;
-    }
-
     private function checkUserNickname($approval)
     {
         $admin_user_id = NULL;
@@ -246,7 +235,7 @@ class CreateVacationForm
             $errors[] = 'Vacation cannot end on Saturday or Sunday';
         }
 
-        $userBalance = $this->checkUserBalance();
+        $userBalance = (new Certificate)->getUserBalance($_SESSION['user_id']);
 
         if ($userBalance < $daysDifference) {
             $errors[] = 'You have only ' . $userBalance . ' days';

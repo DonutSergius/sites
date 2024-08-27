@@ -13,8 +13,7 @@ class MyVacationRequestPage
     {
         $service = new DBService;
         $label = ["uservacationrequest.*"];
-        $data = $service->getData($service->setLabel($label), "`uservacationrequest`
-                    JOIN vacation_request as vq 
+        $data = $service->getData($label, "`uservacationrequest`", "JOIN vacation_request as vq 
                     ON uservacationrequest.vacation_id = vq.vacation_id 
                     WHERE vq.vacation_user_id = " . $_SESSION['user_id']);
 
