@@ -40,7 +40,7 @@ class CreateVacationForm
             (new Elements('Select date end', 'date', 'date-end'))->createInput(),
             (new Elements('Select date and time start', 'datetime-local', 'datetime-start'))->createInput(),
             (new Elements('Select date and time end', 'datetime-local', 'datetime-end'))->createInput(),
-            (new Elements('Enter user nicname how approval this request', 'text', 'approval'))->createInput(),
+            (new Elements('Enter user nickname who approval this request', 'text', 'approval'))->createInput(),
             (new Elements('Reason', 'textarea', 'reason'))->createInput(),
         ];
     }

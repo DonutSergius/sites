@@ -88,6 +88,29 @@ class Table
         return $header_labels;
     }
 
+    public function getCertificateLabels($columns)
+    {
+        $all_headers = [
+            'certificate_name' => 'Name',
+            'certificate_date_start' => 'Date Start',
+            'certificate_date_end' => 'Date End',
+            'certificate_count_days' => 'Count Days',
+            'certificate_type' => 'Type',
+        ];
+
+        $header_labels = [];
+        foreach ($columns as $column) {
+            if (isset($all_headers[$column])) {
+                $header_labels[] = [
+                    'title' => $all_headers[$column],
+                    'machine_name' => $column
+                ];
+            }
+        }
+
+        return $header_labels;
+    }
+
     public function formatDate($date_value, $format = 'Y-m-d')
     {
         $date = new \DateTime($date_value);

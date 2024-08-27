@@ -112,5 +112,10 @@ function getPagesList()
                 return (new Page\MyOperationPage())->buildPage();
             },
         ],
+        'my-certificates' => [
+            'function' => function () {
+                return (new Page\MyCertificatePage())->buildPage();
+            },
+        ],
     ];
 }

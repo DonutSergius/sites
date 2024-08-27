@@ -4,16 +4,15 @@ namespace Sites\Table;
 
 use Sites\Class\Table;
 
-class OperationTable
+class MyCertificatesTable
 {
-    function buildTable($result)
+    function buildTable($vacation_data)
     {
-        $table_name = 'operation-list';
-        $vacation_data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $table_name = 'my-certificates-list';
 
         if (!empty($vacation_data)) {
             $first_row = $vacation_data[0];
-            $header_labels = (new Table)->getOperationLabels(array_keys($first_row));
+            $header_labels = (new Table)->getCertificateLabels(array_keys($first_row));
             $body_rows = $this->getBodyRows($vacation_data, array_keys($first_row));
         } else {
             $header_labels = [];
