@@ -141,24 +141,14 @@ class CreateVacationForm
 
     private function submitForm($admin_user_id)
     {
-        $vacationType = $_POST['vacation-type'] ?? null;
         $vacationTime = $_POST['vacation-time'] ?? null;
 
-        $datetimeStart = $_POST['datetime-start'] ?? null;
-        $datetimeEnd = $_POST['datetime-end'] ?? null;
-
-        $dateStart = $_POST['date-start'] ?? null;
-        $dateEnd = $_POST['date-end'] ?? null;
-
-        $approval = $_POST['approval'] ?? null;
-        $reason = $_POST['reason'] ?? null;
-
         if ($vacationTime == 'fullDay') {
-            $start = new DateTime($dateStart);
-            $end = new DateTime($dateEnd);
+            $start = new DateTime($_POST['date-start']);
+            $end = new DateTime($_POST['date-end']);
         } else {
-            $start = new DateTime($datetimeStart);
-            $end = new DateTime($datetimeEnd);
+            $start = new DateTime($_POST['datetime-start']);
+            $end = new DateTime($_POST['datetime-end']);
         }
 
         $date_start = $start->format('Y-m-d H:i:s');
@@ -177,11 +167,11 @@ class CreateVacationForm
                 $stmt,
                 "issssssi",
                 $user_id,
-                $vacationType,
+                $_POST['vacation-type'],
                 $vacationTime,
                 $date_start,
                 $date_end,
-                $reason,
+                $_POST['date-end'],
                 $status,
                 $admin_user_id
             );
