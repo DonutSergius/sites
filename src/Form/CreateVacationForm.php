@@ -143,38 +143,30 @@ class CreateVacationForm
         $date_start = $start->format('Y-m-d H:i:s');
         $date_end = $end->format('Y-m-d H:i:s');
         $status = "Pending";
+        $labels = ["vacation_user_id, vacation_type, vacation_date_type, vacation_date_start, 
+        vacation_date_end, vacation_reason, vacation_status,vacation_approval"];
 
-        $sql = "INSERT INTO vacation_request 
-        (vacation_user_id, vacation_type, vacation_date_type, vacation_date_start, 
-        vacation_date_end, vacation_reason, vacation_status,vacation_approval) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $conn = (new DBService)->getDBConf();
         $user_id = $_SESSION['user_id'];
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            mysqli_stmt_bind_param(
-                $stmt,
-                "issssssi",
-                $user_id,
-                $_POST['vacation-type'],
-                $vacationTime,
-                $date_start,
-                $date_end,
-                $_POST['date-end'],
-                $status,
-                $admin_user_id
-            );
+        $data = [
+            $user_id,
+            $_POST['vacation-type'],
+            $vacationTime,
+            $date_start,
+            $date_end,
+            $_POST['date-end'],
+            $status,
+            $admin_user_id,
+        ];
+        $table = "vacation_request";
 
-            if (mysqli_stmt_execute($stmt)) {
-                $response_log['confirm'] = 'New row in db will be added';
-                $response['confirm'] = "Vacation request send to moder";
-            } else {
-                $response_log['fatal'] = 'FATAL: Can not create new row: ' . mysqli_error($conn);
-            }
+        $result = (new DBService)->setData($labels, $table, $data);
+
+        if ($result !== TRUE) {
+            $response['error'] = $result;
         } else {
-            $response_log['fatal'] = 'FATAL: can not load new query: ' . mysqli_error($conn);
+            $response['confirm'] = "Vacation request send to moder";
         }
-        mysqli_close($conn);
+
         return $response;
     }
 
@@ -221,6 +213,8 @@ class CreateVacationForm
 
     private function cheсkStartEndDate($dateStart, $dateEnd)
     {
+        session_start();
+
         $errors = [];
         $interval = $dateStart->diff($dateEnd);
         $daysDifference = $interval->days;

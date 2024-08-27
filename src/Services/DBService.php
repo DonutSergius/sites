@@ -2,6 +2,8 @@
 
 namespace Sites\Services;
 
+use mysqli;
+
 class DBService
 {
     public function getDBConf()
@@ -29,7 +31,21 @@ class DBService
     public function setData($select_labels, $table, $data)
     {
         $select_labels = $this->setLabel($select_labels);
-        $sql = "INSERT INTO " . $table . "( " . $select_labels . " )";
-        return NULL;
+        $values = array_map(function ($value) {
+            return "'" . addslashes($value) . "'";
+        }, $data);
+
+        $values_string = implode(", ", $values);
+        $sql = "INSERT INTO " . $table . " (" . $select_labels . ") VALUES (" . $values_string . ")";
+
+        $connection = $this->getDBConf();
+
+        if (mysqli_query($connection, $sql)) {
+            mysqli_close($connection);
+            return TRUE;
+        } else {
+            mysqli_close($connection);
+            return "Error: " . $sql . "<br>" . mysqli_error($connection);
+        }
     }
 }

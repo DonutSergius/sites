@@ -109,53 +109,30 @@ class CreateCertificateForm
         $start = $date_start->format('Y-m-d H:i:s');
         $end = $date_end->format('Y-m-d H:i:s');
 
-        $sql = "INSERT INTO certificate (
-            certificate_name, certificate_date_start, 
+        $labels = ["certificate_name, certificate_date_start, 
             certificate_date_end, certificate_count_days, 
-            certificate_user_id, certificate_type)
-            VALUES (?, ?, ?, ?, ?, ?)";
+            certificate_user_id, certificate_type"];
+        $table = "certificate";
+        $data = [
+            $certificate_name,
+            $start,
+            $end,
+            $count_days,
+            $user_id,
+            $certificate_type,
+        ];
 
-        $conn = (new DBService)->getDBConf();
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            mysqli_stmt_bind_param(
-                $stmt,
-                "sssiis",
-                $certificate_name,
-                $start,
-                $end,
-                $count_days,
-                $user_id,
-                $certificate_type,
-            );
-            mysqli_stmt_execute($stmt);
+        $result = (new DBService)->setData($labels, $table, $data);
+
+        if ($result !== TRUE) {
+            $response['error'] = $result;
+        } else {
+            $response['confirm'] = "Bonus Certificate created";
         }
 
         $op_name = "Gived Bonus Certificate";
         $count_before = 0;
         (new Operation)->setOperation($user_id, $op_name, $count_before, $count_days, $count_days, $start);
-        /* 
-        $sql_op = "INSERT INTO operation (
-            operation_user_id, operation_name, operation_count_before, operation_count, operation_count_after, operation_date)
-            VALUES (?, ?, ?, ?, ?, ?)";
-        $op_name = "Gived Bonus Certificate";
-        $count_before = 0;
-        if ($stmt_op = mysqli_prepare($conn, $sql_op)) {
-            mysqli_stmt_bind_param(
-                $stmt_op,
-                "isiiis",
-                $user_id,
-                $op_name,
-                $count_before,
-                $count_days,
-                $count_days,
-                $start,
-            );
-            mysqli_stmt_execute($stmt_op);
-        }
-
-        mysqli_close($conn); */
-
-        $response['confirm'] = 'Bonus Certificate created';
 
         return $response;
     }
