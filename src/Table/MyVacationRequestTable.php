@@ -63,7 +63,10 @@ class MyVacationRequestTable
                     'value' => $value
                 ];
             }
-            if ($row['vacation_status'] != "canceled" && $row['vacation_date_start'] > $currernt_time) {
+
+            $current_time_formatted = $currernt_time->format('Y-m-d');
+
+            if ($row['vacation_status'] != "canceled" && $row['vacation_date_start'] > $current_time_formatted) {
                 $body_row[] = [
                     'class' => 'workflow',
                     'element' => 'vacation',

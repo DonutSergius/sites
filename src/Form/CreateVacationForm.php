@@ -5,6 +5,7 @@ namespace Sites\Form;
 use Sites\Class\Form;
 use Sites\Class\Elements;
 use Sites\Services\DBService;
+use Sites\Services\Certificate;
 use DateTime;
 
 class CreateVacationForm
@@ -45,6 +46,39 @@ class CreateVacationForm
         ];
     }
 
+    private function checkUserBalance()
+    {
+        session_start();
+        $certificates = (new Certificate)->getActiveCertificates($_SESSION['user_id']);
+        $sum = 0;
+        foreach ($certificates as $certificate) {
+            $sum += $certificate['certificate_count_days'];
+        }
+        return $sum;
+    }
+
+    private function checkUserNickname($approval)
+    {
+        $admin_user_id = NULL;
+        $conn = (new DBService)->getDBConf();
+        $sql = "SELECT user_id FROM `user` WHERE user_nickname = ? AND (user_role = '2' OR user_role = '3')";
+
+        if ($stmt = mysqli_prepare($conn, $sql)) {
+            mysqli_stmt_bind_param($stmt, "s", $approval);
+            mysqli_stmt_execute($stmt);
+
+            $result = mysqli_stmt_get_result($stmt);
+
+            if ($row = $result->fetch_assoc()) {
+                $admin_user_id = $row['user_id'];
+            }
+
+            mysqli_stmt_close($stmt);
+        }
+
+        return $admin_user_id;
+    }
+
     public function validationForm()
     {
         $vacationType = $_POST['vacation-type'] ?? null;
@@ -58,29 +92,6 @@ class CreateVacationForm
 
         $approval = $_POST['approval'] ?? null;
         $reason = $_POST['reason'] ?? null;
-
-        $admin_user_id = NULL;
-
-        if ($approval) {
-            $conn = (new DBService)->getDBConf();
-            $sql = "SELECT user_id FROM `user` WHERE user_nickname = ? AND (user_role = '2' OR user_role = '3')";
-
-            if ($stmt = mysqli_prepare($conn, $sql)) {
-                mysqli_stmt_bind_param($stmt, "s", $approval);
-                mysqli_stmt_execute($stmt);
-
-                $result = mysqli_stmt_get_result($stmt);
-
-                if ($row = $result->fetch_assoc()) {
-                    $admin_user_id = $row['user_id'];
-                } else {
-                    $admin_user_id = NULL;
-                    $response['error'] = 'User does not exist or Not Administrator';
-                }
-
-                mysqli_stmt_close($stmt);
-            }
-        }
 
         if ($vacationType === "paid") {
             if ($dateStart && $dateEnd && $approval && $reason) {
@@ -107,10 +118,18 @@ class CreateVacationForm
                 }
             }
         }
-        if (empty($response['error']) && $admin_user_id !== NULL) {
+
+        if ($approval) {
+            $admin_user_id = $this->checkUserNickname($approval);
+            if ($admin_user_id === NULL) {
+                $value = $response['error'];
+                $newLine = 'User dont exist or are not PM';
+                $response['error'] = $value . "\n" . $newLine;
+            }
+        }
+
+        if (empty($response['error'])) {
             $response = $this->submitForm($admin_user_id);
-        } else {
-            $response['error'] = 'User does not exist or Not Administrator';
         }
 
         if (isset($response['error'])) {
@@ -122,8 +141,6 @@ class CreateVacationForm
 
     private function submitForm($admin_user_id)
     {
-        session_start();
-
         $vacationType = $_POST['vacation-type'] ?? null;
         $vacationTime = $_POST['vacation-time'] ?? null;
 
@@ -237,6 +254,12 @@ class CreateVacationForm
         }
         if ($daysDifference < 7 && in_array($dateEnd->format('N'), ['6', '7'])) {
             $errors[] = 'Vacation cannot end on Saturday or Sunday';
+        }
+
+        $userBalance = $this->checkUserBalance();
+
+        if ($userBalance < $daysDifference) {
+            $errors[] = 'You have only ' . $userBalance . ' days';
         }
 
         return $errors;

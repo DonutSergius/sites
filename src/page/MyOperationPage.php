@@ -13,7 +13,7 @@ class MyOperationPage
     {
         $service = new DBService;
         $label = ["operation_name, operation_count_before, operation_count, operation_count_after, operation_date"];
-        $data = $service->getData($service->setLabel($label), "`operation`");
+        $data = $service->getData($service->setLabel($label), "`operation` WHERE operation_user_id = " . $_SESSION['user_id']);
 
         $loader = new \Twig\Loader\FilesystemLoader('templates/');
         $twig = new \Twig\Environment($loader);
