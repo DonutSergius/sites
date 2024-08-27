@@ -12,15 +12,17 @@ $twig = new \Twig\Environment($loader);
 if (empty($_SESSION['user_role'])) {
     $page = (new Sites\Page\LoginUserPage())->buildPage();
 
+    $login = $twig->render('login-user-form.twig.html', ['title' => $page->getTitle(), 'contents' => $page->getContent()]);
+
     $titleHtml = $twig->render('page-title.twig.html', ['title' => $page->getTitle()]);
     $contentHtml = $twig->render('page-content.twig.html', ['contents' => $page->getContent()]);
     $sidebarHtml = $twig->render('page-sidebar.twig.html', ['sidebar' => $page->getSidebar()]);
 
     $pageData = [
         'links' => '',
-        'title' => $titleHtml,
-        'content' => $contentHtml,
-        'sidebar' => $sidebarHtml,
+        'title' => '',
+        'content' => $login,
+        'sidebar' => '',
     ];
     echo $twig->render('page.twig.html', $pageData);
     exit;

@@ -1,0 +1,8 @@
+<div class="login-user-form">
+    {% for content in contents %}
+    <div class="{{ content.name|raw }}">
+        <div class="login-user-form-title">{{ title }}</div>
+        {{ content.content|raw }}
+    </div>
+    {% endfor %}
+</div>

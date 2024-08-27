@@ -3,7 +3,7 @@
 namespace Sites\Page;
 
 use Sites\Class\Page;
-use Sites\Table\VacationTable;
+use Sites\Table\MyVacationRequestTable;
 use Sites\Services\DBService;
 
 
@@ -25,7 +25,7 @@ class MyVacationRequestPage
 
         $content = [
             ['name' => 'user-links', 'content' => $linksHtml],
-            ['name' => 'user-table', 'content' => (new VacationTable)->buildVacationTable($data)],
+            ['name' => 'user-table', 'content' => (new MyVacationRequestTable)->buildTable($data)],
         ];
 
         return new Page('My vacation request', $content, '');

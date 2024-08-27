@@ -20,6 +20,16 @@
 .main-links li a.active {
   text-decoration: underline;
 }
+.login-user-form {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login-user-form .login-user-form-title {
+  text-align: center;
+}
 * {
   margin: 0;
   padding: 0;
@@ -29,24 +39,24 @@
   text-align: center;
   margin-bottom: 20px;
 }
-.table-vacation-list {
+table {
   margin: 0 auto;
 }
-.table-vacation-list thead th, .table-vacation-list thead td, .table-vacation-list tbody th, .table-vacation-list tbody td {
+table thead th, table thead td, table tbody th, table tbody td {
   text-align: center;
   padding: 0 20px;
 }
-.table-vacation-list thead th.td-workflow, .table-vacation-list thead td.td-workflow, .table-vacation-list tbody th.td-workflow, .table-vacation-list tbody td.td-workflow {
+table thead th.td-workflow, table thead td.td-workflow, table tbody th.td-workflow, table tbody td.td-workflow {
   padding: 0;
 }
-.table-vacation-list thead th.td-workflow button, .table-vacation-list thead td.td-workflow button, .table-vacation-list tbody th.td-workflow button, .table-vacation-list tbody td.td-workflow button {
+table thead th.td-workflow button, table thead td.td-workflow button, table tbody th.td-workflow button, table tbody td.td-workflow button {
   padding: 10px 15px;
   background-color: initial;
 }
-.table-vacation-list thead th.td-workflow button:hover, .table-vacation-list thead td.td-workflow button:hover, .table-vacation-list tbody th.td-workflow button:hover, .table-vacation-list tbody td.td-workflow button:hover {
+table thead th.td-workflow button:hover, table thead td.td-workflow button:hover, table tbody th.td-workflow button:hover, table tbody td.td-workflow button:hover {
   cursor: pointer;
   background-color: aqua;
 }
-.table-vacation-list thead th {
+table thead th {
   padding-bottom: 10px;
 }

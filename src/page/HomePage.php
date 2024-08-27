@@ -3,7 +3,7 @@
 namespace Sites\Page;
 
 use Sites\Class\Page;
-use Sites\Table\VacationTable;
+use Sites\Table\HomePageTable;
 use Sites\Services\DBService;
 
 class HomePage
@@ -19,7 +19,7 @@ class HomePage
                 ORDER BY vacation_id DESC');
 
         $content = [
-            ['name' => 'homepage-table', 'content' => (new VacationTable)->buildVacationTable($data)],
+            ['name' => 'homepage-table', 'content' => (new HomePageTable)->buildTable($data)],
         ];
 
         return new Page('Home', $content, '');

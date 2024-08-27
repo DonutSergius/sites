@@ -3,7 +3,7 @@
 namespace Sites\Page;
 
 use Sites\Class\Page;
-use Sites\Table\VacationTable;
+use Sites\Table\OperationTable;
 use Sites\Services\DBService;
 
 
@@ -22,7 +22,7 @@ class MyOperationPage
 
         $content = [
             ['name' => 'user-links', 'content' => $linksHtml],
-            ['name' => 'user-table', 'content' => (new VacationTable)->buildVacationTable($data)],
+            ['name' => 'user-table', 'content' => (new OperationTable)->buildTable($data)],
         ];
 
         return new Page('My Operations', $content, '');
