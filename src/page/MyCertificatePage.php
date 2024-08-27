@@ -34,6 +34,6 @@ class MyCertificatePage
             ['name' => 'user-table', 'content' => (new MyCertificatesTable)->buildTable($data)],
         ];
 
-        return new Page('My Operations', $content, '');
+        return new Page('My Certificates', $content, '');
     }
 }
