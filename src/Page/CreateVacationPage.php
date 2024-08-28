@@ -1,6 +1,6 @@
 <?php
 
-namespace Sites\Page\Vacations;
+namespace Sites\Page;
 
 use Sites\Class\Page;
 use Sites\Form\CreateVacationForm;

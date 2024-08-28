@@ -18,8 +18,6 @@ class Operation
         $sql_op = "INSERT INTO operation (
             operation_user_id, operation_name, operation_count_before, operation_count, operation_count_after, operation_date)
             VALUES (?, ?, ?, ?, ?, ?)";
-        $op_name = "Gived Bonus Certificate";
-        $count_before = 0;
         if ($stmt_op = mysqli_prepare($conn, $sql_op)) {
             mysqli_stmt_bind_param(
                 $stmt_op,
