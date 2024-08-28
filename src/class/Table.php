@@ -15,6 +15,21 @@ class Table
         $this->body_rows = $body_rows;
     }
 
+    public function setName($name)
+    {
+        $this->table_name = $name;
+    }
+
+    public function setHeaders($headers)
+    {
+        $this->header_labels = $headers;
+    }
+
+    public function setRows($rows)
+    {
+        $this->body_rows = $rows;
+    }
+
     public function getTableName()
     {
         return $this->table_name;

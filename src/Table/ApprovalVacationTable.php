@@ -6,6 +6,14 @@ use Sites\Class\Table;
 
 class ApprovalVacationTable
 {
+
+    private $table;
+
+    public function __construct()
+    {
+        $this->table = new Table();
+    }
+
     function buildTable($result)
     {
         $table_name = 'approval-vacation-list';
@@ -13,7 +21,7 @@ class ApprovalVacationTable
 
         if (!empty($vacation_data)) {
             $first_row = $vacation_data[0];
-            $header_labels = (new Table)->getVacationLabels(array_keys($first_row));
+            $header_labels = $this->table->getVacationLabels(array_keys($first_row));
             $body_rows = $this->getBodyRows($vacation_data, array_keys($first_row));
         } else {
             $header_labels = [];
@@ -25,11 +33,14 @@ class ApprovalVacationTable
             'machine_name' => 'action'
         ];
 
-        $vacationTable = new Table($table_name, $header_labels, $body_rows);
+        $this->table->setName($table_name);
+        $this->table->setHeaders($header_labels);
+        $this->table->setRows($body_rows);
+
         $loader = new \Twig\Loader\FilesystemLoader('templates/');
         $twig = new \Twig\Environment($loader);
 
-        return $twig->render('table.twig.html', $vacationTable->toArray());
+        return $twig->render('table.twig.html', $this->table->toArray());
     }
 
     function getBodyRows($vacation_data, $columns)
@@ -49,7 +60,7 @@ class ApprovalVacationTable
                     $date_type == 'fullDay' &&
                     ($column_name == 'vacation_date_start' || $column_name == 'vacation_date_end')
                 ) {
-                    $value = (new Table)->formatDate($value);
+                    $value = $this->table->formatDate($value);
                 }
 
                 if ($column_name == 'vacation_id') {
