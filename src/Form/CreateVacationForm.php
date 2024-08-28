@@ -153,7 +153,7 @@ class CreateVacationForm
             $vacationTime,
             $date_start,
             $date_end,
-            $_POST['date-end'],
+            $_POST['reason'],
             $status,
             $admin_user_id,
         ];

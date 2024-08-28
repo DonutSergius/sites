@@ -48,4 +48,23 @@ class DBService
             return "Error: " . $sql . "<br>" . mysqli_error($connection);
         }
     }
+
+    public function updateData($table, $data,  $conditions)
+    {
+        $set_clause = implode(", ", array_map(function ($key, $value) {
+            return $key . " = '" . addslashes($value) . "'";
+        }, array_keys($data), $data));
+
+        $sql = "UPDATE " . $table . " SET " . $set_clause . " WHERE " . $conditions;
+
+        $connection = $this->getDBConf();
+
+        if (mysqli_query($connection, $sql)) {
+            mysqli_close($connection);
+            return TRUE;
+        } else {
+            mysqli_close($connection);
+            return "Error: " . $sql . "<br>" . mysqli_error($connection);
+        }
+    }
 }

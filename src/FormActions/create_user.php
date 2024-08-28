@@ -75,7 +75,7 @@ function checkUserNickname($nickname)
 
 function checkUserEmail($email)
 {
-    $conn = getDBConf();
+    $conn = (new DBService)->getDBConf();
     $check_sql = "SELECT * FROM user WHERE user_email = ?";
     if ($stmt = mysqli_prepare($conn, $check_sql)) {
         mysqli_stmt_bind_param($stmt, "s", $email);
