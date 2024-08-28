@@ -50,7 +50,7 @@ class CreateVacationForm
     {
         $admin_user_id = NULL;
         $conn = (new DBService)->getDBConf();
-        $sql = "SELECT user_id FROM `user` WHERE user_nickname = ? AND (user_role = '2' OR user_role = '3')";
+        $sql = "SELECT user_id FROM `user` WHERE user_nickname = ? AND (user_role = '2' OR user_role = '1')";
 
         if ($stmt = mysqli_prepare($conn, $sql)) {
             mysqli_stmt_bind_param($stmt, "s", $approval);
@@ -217,7 +217,7 @@ class CreateVacationForm
 
         $errors = [];
         $interval = $dateStart->diff($dateEnd);
-        $daysDifference = $interval->days;
+        $daysDifference = $interval->days + 1;
 
         if ($dateEnd < $dateStart) {
             $errors[] = 'Vacation cannot end before will start';

@@ -8,13 +8,6 @@ class Table
     private $header_labels = [];
     private $body_rows = [];
 
-    public function __construct($table_name = NULL, $header_labels = NULL, $body_rows = NULL)
-    {
-        $this->table_name = $table_name;
-        $this->header_labels = $header_labels;
-        $this->body_rows = $body_rows;
-    }
-
     public function setName($name)
     {
         $this->table_name = $name;

@@ -67,7 +67,7 @@ function getPagesList()
         ],
         'create-vacation' => [
             'function' => function () {
-                return (new Page\Vacations\CreateVacationPage())->buildPage();
+                return (new Page\CreateVacationPage())->buildPage();
             },
         ],
         'logout' => [
