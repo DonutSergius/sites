@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_nickname'] = $userData['user_nickname'];
                 $_SESSION['user_role'] = $userData['user_role'];
                 $response['confirm'] = 'Login';
+                header('Location: /sites/home');
             }
         } else {
             $response['error'] = 'Invalid username or password';

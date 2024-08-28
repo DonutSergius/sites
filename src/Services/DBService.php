@@ -8,7 +8,7 @@ class DBService
 {
     public function getDBConf()
     {
-        return  mysqli_connect('localhost', 'root', '', 'sites');;
+        return  mysqli_connect('localhost', 'root', 'donut1111', 'sites');;
     }
 
     public function getData($select_labels, $table, $conditions = "")

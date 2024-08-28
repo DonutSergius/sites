@@ -4,3 +4,5 @@ node_modules/*
 gulp_start.bat
 vacation_log.txt
 db_config.php
+~/*
+src/Services/DBService.php
