@@ -77,13 +77,17 @@ class MyVacationRequestTable
 
             $current_time_formatted = $currernt_time->format('Y-m-d');
 
-            if ($row['vacation_status'] != "canceled" && $row['vacation_date_start'] > $current_time_formatted) {
+            if (($row['vacation_status'] == "Approved" || $row['vacation_status'] == "Pending") && $row['vacation_date_start'] > $current_time_formatted) {
                 $body_row[] = [
                     'class' => 'workflow',
-                    'element' => 'vacation',
-                    'action' => '/sites/src/FormActions/cancel.php',
-                    'id' => $element_id,
-                    'value' => 'Cancel',
+                    'buttons' => [
+                        [
+                            'element' => 'vacation',
+                            'action' => '/sites/src/FormActions/cancel.php',
+                            'id' => $element_id,
+                            'value' => 'Cancel',
+                        ],
+                    ],
                 ];
             }
             $body_rows[] = $body_row;

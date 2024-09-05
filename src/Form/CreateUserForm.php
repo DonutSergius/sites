@@ -12,7 +12,7 @@ class CreateUserForm
     {
         $nameForm = 'cretae_user_form';
         $action = 'src/FormActions/create_user.php';
-        $scripts = 'src/js/formScripts/create_user_form.js';
+        $scripts = 'src/JS/FormScripts/create_user_form.js';
 
         $inputs = $this->getInputsElements();
 

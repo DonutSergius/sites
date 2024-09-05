@@ -14,7 +14,7 @@ class CreateCertificateForm
     {
         $nameForm = 'сreate_certificate';
         $action = 'src/FormActions/create_certificate.php';
-        $scripts = 'src\js\formScripts\create_certificate.js';
+        $scripts = 'src\JS\FormScripts\create_certificate.js';
 
         $inputs = $this->getInputsElements();
 
@@ -105,13 +105,14 @@ class CreateCertificateForm
 
         $certificate_name = 'Bonus certificate to ' . $user_nickname;
         $certificate_type = "Bonus";
+        $certificate_status = "Active";
         $date_end = new DateTime($date_end);
         $start = $date_start->format('Y-m-d H:i:s');
         $end = $date_end->format('Y-m-d H:i:s');
 
         $labels = ["certificate_name, certificate_date_start, 
             certificate_date_end, certificate_count_days, 
-            certificate_user_id, certificate_type"];
+            certificate_user_id, certificate_type, certificate_status"];
         $table = "certificate";
         $data = [
             $certificate_name,
@@ -120,6 +121,7 @@ class CreateCertificateForm
             $count_days,
             $user_id,
             $certificate_type,
+            $certificate_status,
         ];
 
         $result = (new DBService)->setData($labels, $table, $data);

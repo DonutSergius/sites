@@ -12,7 +12,7 @@ class CreateRoleForm
     {
         $nameForm = 'cretae_role_form';
         $action = 'src/FormActions/create_role.php';
-        $scripts = 'src/js/formScripts/create_role_form.js';
+        $scripts = 'src/JS/FormScripts/create_role_form.js';
 
         $inputs = $this->getInputsElements();
 

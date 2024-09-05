@@ -11,7 +11,7 @@ class LoginUserForm
     {
         $nameForm = 'login_user_form';
         $action = 'src/FormActions/login_user.php';
-        $scripts = 'src/js/formScripts/login_user_form.js';
+        $scripts = 'src/JS/FormScripts/login_user_form.js';
 
         $inputs = $this->getInputsElements();
 

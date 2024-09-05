@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $end = new DateTime($vacationData['vacation_date_end']);
         $interval = $start->diff($end);
 
-
         $daysInRequest = $interval->days + 1;
         $user_id = $vacationData["vacation_user_id"];
 

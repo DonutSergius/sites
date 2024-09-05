@@ -8,8 +8,10 @@ table{
             padding: 0 20px;
 
             &.td-workflow {
+                display: flex;
                 padding: 0;
                 button {
+                    margin: 0 10px;
                     padding: 10px 15px;
                     background-color: initial;
                     &:hover {

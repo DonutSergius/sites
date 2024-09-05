@@ -14,7 +14,7 @@ class CreateVacationForm
     {
         $nameForm = 'сreate_vacation';
         $action = 'src/FormActions/create_vacation.php';
-        $scripts = 'src/js/formScripts/vacation_form.js';
+        $scripts = 'src/JS/FormScripts/vacation_form.js';
 
         $inputs = $this->getInputsElements();
 

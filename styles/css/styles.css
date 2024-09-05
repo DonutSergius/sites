@@ -47,9 +47,11 @@ table thead th, table thead td, table tbody th, table tbody td {
   padding: 0 20px;
 }
 table thead th.td-workflow, table thead td.td-workflow, table tbody th.td-workflow, table tbody td.td-workflow {
+  display: flex;
   padding: 0;
 }
 table thead th.td-workflow button, table thead td.td-workflow button, table tbody th.td-workflow button, table tbody td.td-workflow button {
+  margin: 0 10px;
   padding: 10px 15px;
   background-color: initial;
 }
