@@ -1,4 +1,23 @@
+@import "_variables";
+
 .page_title {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: $mediumMargin;
+    h1 {
+        font-size: $desktopTitleFontSize;
+        line-height: $desktopTitleFontSize;
+    }
+}
+
+header {
+    background-color: $darkBrown;
+    padding: 25px 0;
+    margin-bottom: $bigMargin;
+}
+
+.top-nav-bar, .main-content, .footer-content {
+    margin: 0 auto;
+    width: $bigDesktopWidth;
+    padding: 0 $mediumPadding;
+    box-sizing: border-box;
 }

@@ -1,5 +1,6 @@
+@import "_variables";
+
 .main-links {
-    margin: 20px 0;
     display: flex;
     flex-wrap: wrap;
     li {
@@ -8,8 +9,19 @@
         &:first-child {
             margin-left: 0;
         }
+
+        a {
+            font-size: $desktopFontSize;
+            color: $white;
+        }
+
         a.active {
             text-decoration: underline;
+            text-underline-offset: 5px;
+        }
+        
+        &.link-user-cabinet, &.link-login {
+            margin-left: auto;
         }
     }
 }
