@@ -134,5 +134,10 @@ function getPagesList()
                 return (new Page\MyCertificatePage())->buildPage();
             },
         ],
+        'statistic' => [
+            'function' => function () {
+                return (new Page\StatisticPage())->buildPage();
+            },
+        ],
     ];
 }

@@ -16,6 +16,7 @@ RewriteRule ^create-certificate$ index.php?page=create-certificate [L]
 RewriteRule ^approval-vacation$ index.php?page=approval-vacation [L]
 RewriteRule ^my-operations$ index.php?page=my-operations [L]
 RewriteRule ^my-certificates$ index.php?page=my-certificates [L]
+RewriteRule ^statistic$ index.php?page=statistic [L]
 
 # Rewrite to not-found page if file or directory does not exist
 RewriteCond %{REQUEST_FILENAME} !-f

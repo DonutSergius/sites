@@ -64,7 +64,7 @@ class Links
         return array_merge($this->getTLLinks('admin'), [
             ['url' => 'create-user', 'title' => 'Create user', 'tag' => 'admin'],
             ['url' => 'create-role', 'title' => 'Create role', 'tag' => 'admin'],
-
+            ['url' => 'statistic', 'title' => 'Statistic', 'tag' => 'admin'],
         ]);
     }
 

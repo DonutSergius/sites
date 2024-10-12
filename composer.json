@@ -1,6 +1,7 @@
 {
     "require": {
-        "twig/twig": "^3.10"
+        "twig/twig": "^3.10",
+        "ext-json": "*"
     },
     "autoload": {
         "psr-4": {
