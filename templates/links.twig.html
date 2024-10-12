@@ -2,7 +2,7 @@
     {% for link in links %}
     <li class="link-{{ link.url }}">
         <a
-            href="/sites/{{ link.url }}"
+            href="{{ link.url }}"
             class="{{ link.active ? 'active' : '' }}"
         >
             {{ link.title }}

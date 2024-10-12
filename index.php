@@ -3,6 +3,7 @@
 require 'vendor/autoload.php';
 
 use Sites\Page;
+use Sites\Links;
 
 session_start();
 
@@ -30,24 +31,39 @@ if (empty($_SESSION['user_role'])) {
 
 $pageKey = $_GET['page'] ?? 'home';
 $pages = getPagesList();
+$linksGlobal = (new Links)->buildMainLinks();
+$linksUser = (new Links)->buildUserLinks();
+$allLinks = array_merge($linksGlobal, $linksUser);
+$urls = array_column($allLinks, 'url');
 
 if (isset($pages[$pageKey])) {
     $pageConfig = $pages[$pageKey];
 
-    if (isset($pageConfig['action'])) {
-        $pageConfig['action']();
+    if (!in_array($pageKey, $urls)) {
+        $pageTitle = "Access denied";
+        $pageContent = $twig->render('page-access-denied.twig.html');
+        $pageSidebar = "";
     } else {
-        $page = $pageConfig['function']();
+        if (isset($pageConfig['action'])) {
+            $pageConfig['action']();
+        } else {
+            $page = $pageConfig['function']();
+
+            $pageTitle = $page->getTitle();
+            $pageContent = $page->getContent();
+            $pageSidebar = $page->getSidebar();
+        }
     }
 } else {
-    echo $twig->render('page-not-found.twig.html', ['content' => $_SERVER['REQUEST_METHOD']]);
-    return;
+    $pageTitle = "Not Found";
+    $pageContent = $twig->render('page-not-found.twig.html');
+    $pageSidebar = "";
 }
 
-$linksHtml = $twig->render('links.twig.html', ['links' => (new Sites\Links)->buildMainLinks(), 'session' => $_SESSION]);
-$titleHtml = $twig->render('page-title.twig.html', ['title' => $page->getTitle()]);
-$contentHtml = $twig->render('page-content.twig.html', ['contents' => $page->getContent()]);
-$sidebarHtml = $twig->render('page-sidebar.twig.html', ['sidebar' => $page->getSidebar()]);
+$linksHtml = $twig->render('links.twig.html', ['links' => $linksGlobal, 'session' => $_SESSION]);
+$titleHtml = $twig->render('page-title.twig.html', ['title' => $pageTitle]);
+$contentHtml = $twig->render('page-content.twig.html', ['contents' => $pageContent]);
+$sidebarHtml = $twig->render('page-sidebar.twig.html', ['sidebar' => $pageSidebar]);
 
 $pageData = [
     'links' => $linksHtml,
@@ -55,6 +71,7 @@ $pageData = [
     'content' => $contentHtml,
     'sidebar' => $sidebarHtml,
 ];
+
 echo $twig->render('page.twig.html', $pageData);
 
 function getPagesList()
@@ -73,7 +90,7 @@ function getPagesList()
         'logout' => [
             'action' => function () {
                 session_destroy();
-                header('Location: /sites/home');
+                header('Location: home');
                 exit();
             }
         ],

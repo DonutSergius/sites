@@ -5,3 +5,4 @@ db_config.php
 ~/*
 src/Services/DBService.php
 *.sql
+vendor/

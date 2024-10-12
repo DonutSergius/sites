@@ -1,9 +1,9 @@
 RewriteEngine On
 
-RewriteBase /sites/
+# Updated local path to your local project
+RewriteBase /univer/sites/
 
 # Existing rules
-RewriteRule ^test$ test.php [L]
 RewriteRule ^user-cabinet$ index.php?page=user-cabinet [L]
 RewriteRule ^login$ index.php?page=login [L]
 RewriteRule ^logout$ index.php?page=logout [L]

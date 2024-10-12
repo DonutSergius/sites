@@ -19,7 +19,7 @@ function init_form(formId, actionUrl) {
                     if (errorElement) errorElement.innerText = data.error;
                     if (confirmElement) confirmElement.innerText = "";
                 } else if (data.confirm) {
-                    window.location.href = '/sites/home';
+                    window.location.href = 'home';
                 }
             })
             .catch((error) => {
