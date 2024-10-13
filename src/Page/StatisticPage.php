@@ -15,7 +15,7 @@ class StatisticPage
         $service = new DBService;
         $labels = ['*'];
 
-        $data = $service->getData($labels, '`homepageview`');
+        $data = $service->getData($labels, '`homepageview`', 'ORDER BY `vacation_id` DESC');
 
         $content = [
             ['name' => 'coool-field', 'content' => (new StatisticFilterForm)->buildForm()],
@@ -42,40 +42,38 @@ class StatisticPage
     {
         $service = new DBService;
         $con = $service->getDBConf();
-        // Створіть SQL запит на основі параметрів
+
+        // Базовий запит
         $query = "SELECT * FROM `homepageview` WHERE 1=1";
-
-        if ($author) {
-            $query .= " AND `user_nickname` = ?";
-        }
-        if ($type) {
-            $query .= " AND `vacation_type` = ?";
-        }
-        if ($timeType) {
-            $query .= " AND `vacation_date_type` = ?";
-        }
-
-        // Підготуйте запит
-        $stmt = $con->prepare($query);
-        if ($stmt === false) {
-            die('Prepare failed: ' . htmlspecialchars($con->error));
-        }
 
         // Підготовка параметрів
         $params = [];
         $types = '';
 
-        if ($author) {
+        // Додаємо умови лише якщо параметри не порожні
+        if ($author && $author != '*') {
+            $query .= " AND `user_nickname` = ?";
             $params[] = $author;
             $types .= 's'; // 's' для string
         }
-        if ($type) {
+        if ($type && $type != '*') {
+            $query .= " AND `vacation_type` = ?";
             $params[] = $type;
             $types .= 's';
         }
-        if ($timeType) {
+        if ($timeType && $timeType != '*') {
+            $query .= " AND `vacation_date_type` = ?";
             $params[] = $timeType;
             $types .= 's';
+        }
+
+        // Додаємо сортування після всіх умов
+        $query .= " ORDER BY `vacation_id` DESC";
+
+        // Підготуйте запит
+        $stmt = $con->prepare($query);
+        if ($stmt === false) {
+            die('Prepare failed: ' . htmlspecialchars($con->error));
         }
 
         // Прив'язування параметрів, якщо вони є
@@ -93,7 +91,9 @@ class StatisticPage
 
         // Закриття запиту
         $stmt->close();
+        $con->close();
 
         return $result;
     }
+
 }

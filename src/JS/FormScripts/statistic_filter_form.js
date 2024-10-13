@@ -42,11 +42,11 @@ function displayResult(data) {
             tr.appendChild(timeCell);
 
             var startDateCell = document.createElement('td');
-            startDateCell.textContent = row.vacation_date_start;
+            startDateCell.textContent = formatDate(row.vacation_date_start, row.vacation_date_type === 'fullDay');
             tr.appendChild(startDateCell);
 
             var endDateCell = document.createElement('td');
-            endDateCell.textContent = row.vacation_date_end;
+            endDateCell.textContent = formatDate(row.vacation_date_end, row.vacation_date_type === 'fullDay');
             tr.appendChild(endDateCell);
 
             var reasonCell = document.createElement('td');
@@ -62,5 +62,24 @@ function displayResult(data) {
         noResultCell.colSpan = 6;
         noResultRow.appendChild(noResultCell);
         tableBody.appendChild(noResultRow);
+    }
+
+    function formatDate(dateString, isFullDay) {
+        const date = new Date(dateString);
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Місяць у JavaScript починається з 0
+        const day = String(date.getDate()).padStart(2, '0');
+
+        if (isFullDay) {
+            // Повертаємо тільки дату
+            return `${year}-${month}-${day}`;
+        } else {
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            // Повертаємо дату та час
+            return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        }
     }
 }

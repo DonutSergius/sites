@@ -33,10 +33,12 @@ class StatisticFilterForm {
                 $user_list
             ),
             (new Elements('Type vacation', 'select', 'vacation-type'))->createSelect([
+                '*' => '-Any-',
                 'paid' => 'Paid',
                 'unpaid' => 'Unpaid',
             ]),
             (new Elements('Time type vacation', 'select', 'vacation-time'))->createSelect([
+                '*' => '-Any-',
                 'fullDay' => 'Full day',
                 'specificTime' => 'Specific Time',
             ]),
@@ -49,6 +51,7 @@ class StatisticFilterForm {
         $data = $service->getData($labels, 'user', '');
         $user_list =  mysqli_fetch_all($data, MYSQLI_ASSOC);
 
+        $userData['*'] = '-Any-';
         foreach ($user_list as $user) {
             $userData[$user['user_nickname']] = $user['user_nickname'];
         }
