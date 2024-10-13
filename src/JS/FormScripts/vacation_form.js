@@ -1,73 +1,51 @@
 function init_form(formId, actionUrl) {
+
+    var fieldVacationTime = document.querySelector(".field-vacation-time");
+    var fieldDateStart = document.querySelector(".field-date-start");
+    var fieldDateEnd = document.querySelector(".field-date-end");
+    var fieldDateTimeStart = document.querySelector(".field-datetime-start");
+    var fieldDateTimeEnd = document.querySelector(".field-datetime-end");
+
     var vacationType = document.getElementById("vacation-type");
     var vacationTime = document.getElementById("vacation-time");
-    var labelVacationTime = document.getElementById("field-vacation-time")
 
-    var dateStartField = document.getElementById("date-start");
-    var dateEndField = document.getElementById("date-end");
-    var labelStartField = document.getElementById("field-date-start")
-    var labelEndField = document.getElementById("field-date-end")
+    fieldDateStart.style.display = "block";
+    fieldDateEnd.style.display = "block";
 
-    var datetimeStartField = document.getElementById("datetime-start");
-    var datetimeEndField = document.getElementById("datetime-end");
-    var labelDatetimeStartField  = document.getElementById("field-datetime-start")
-    var labelDatetimeEndField = document.getElementById("field-datetime-end")
+    fieldVacationTime.style.display = "none";
 
-    dateStartField.style.display = "block";
-    dateEndField.style.display = "block";
-    labelStartField.style.display = "block";
-    labelEndField.style.display = "block";
-
-    vacationTime.style.display = "none";
-    labelVacationTime.style.display = "none";
-
-    datetimeStartField.style.display = "none";
-    datetimeEndField.style.display = "none";
-    labelDatetimeStartField.style.display = "none";
-    labelDatetimeEndField.style.display = "none";
+    fieldDateTimeStart.style.display = "none";
+    fieldDateTimeEnd.style.display = "none";
     
     vacationType.addEventListener("change", function() {
         if (this.value === "paid") {
-            dateStartField.style.display = "block";
-            dateEndField.style.display = "block";
-            labelStartField.style.display = "block";
-            labelEndField.style.display = "block";
+            fieldDateStart.style.display = "block";
+            fieldDateEnd.style.display = "block";
 
-            vacationTime.style.display = "none";
-            labelVacationTime.style.display = "none";
+            fieldVacationTime.style.display = "none";
 
-            datetimeStartField.style.display = "none";
-            datetimeEndField.style.display = "none";
-            labelDatetimeStartField.style.display = "none";
-            labelDatetimeEndField.style.display = "none";
+            fieldDateTimeStart.style.display = "none";
+            fieldDateTimeEnd.style.display = "none";
+
+            vacationTime.value = "fullDay";
         } else {
-            labelVacationTime.style.display = "block";
-            vacationTime.style.display = "block";
-
+            fieldVacationTime.style.display= "block";
         }
     });
     
     vacationTime.addEventListener("change", function(){
         if(this.value === "fullDay"){
-            dateStartField.style.display = "block";
-            dateEndField.style.display = "block";
-            labelStartField.style.display = "block";
-            labelEndField.style.display = "block";
+            fieldDateStart.style.display = "block";
+            fieldDateEnd.style.display = "block";
 
-            datetimeStartField.style.display = "none";
-            datetimeEndField.style.display = "none";
-            labelDatetimeStartField.style.display = "none";
-            labelDatetimeEndField.style.display = "none";
+            fieldDateTimeStart.style.display = "none";
+            fieldDateTimeEnd.style.display = "none";
         } else {
-            dateStartField.style.display = "none";
-            dateEndField.style.display = "none";
-            labelStartField.style.display = "none";
-            labelEndField.style.display = "none";
+            fieldDateStart.style.display = "none";
+            fieldDateEnd.style.display = "none";
 
-            datetimeStartField.style.display = "block";
-            datetimeEndField.style.display = "block";
-            labelDatetimeStartField.style.display = "block";
-            labelDatetimeEndField.style.display = "block";
+            fieldDateTimeStart.style.display = "block";
+            fieldDateTimeEnd.style.display = "block";
         }
     });
 

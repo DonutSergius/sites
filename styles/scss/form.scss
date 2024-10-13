@@ -1,7 +1,22 @@
+@import "_variables";
+
 .form-field {
     width: max-content;
     margin: 0 auto;
     label {
         display: block;
+    }
+    input,
+    select,
+    textarea {
+        background-color: $lightBrown;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 15px;
+        color: $white;
+    }
+
+    textarea {
+        resize: vertical;
     }
 }

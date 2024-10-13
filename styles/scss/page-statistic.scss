@@ -1,0 +1,30 @@
+@import "_variables";
+
+#statistic_filter_form {
+  margin-bottom: 20px;
+
+  .form-field {
+    gap: 50px;
+    display: flex;
+    justify-content: space-between;
+
+    .field-select {
+      width: 180px;
+      label {
+        margin-left: 5px;
+        margin-bottom: -10px;
+      }
+      select {
+        width: 100%;
+      }
+    }
+
+    .submit-button {
+      align-self: end;
+      width: 100px;
+      input {
+        width: 100%;
+      }
+    }
+  }
+}

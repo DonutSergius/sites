@@ -12,6 +12,7 @@
             <label id="field-{{input.id}}" for="{{ input.id }}" class="field-title-element">{{ input.title }}</label>
             {% if input.type == 'textarea' %}
             <textarea
+                rows="3"
                 id="{{ input.id }}"
                 name="{{ input.name }}"
                 class="form-field-{{input.field}}"

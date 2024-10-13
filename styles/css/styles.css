@@ -5,6 +5,18 @@
 .form-field label {
   display: block;
 }
+.form-field input,
+.form-field select,
+.form-field textarea {
+  background-color: #CCAB93;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 15px;
+  color: #f0f0f0;
+}
+.form-field textarea {
+  resize: vertical;
+}
 h1, h2, h3 {
   font-family: "Kadwa", serif;
   font-weight: 700;
@@ -43,7 +55,6 @@ p, div, span, label {
 }
 .login-user-form {
   height: 100vh;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,6 +74,94 @@ body {
   background-color: #A18C7D;
   margin: 0;
   padding: 0;
+}
+@charset "UTF-8";
+#сreate_vacation .form-field {
+  display: flex;
+  flex-wrap: wrap;
+  width: 700px;
+  justify-content: space-between;
+}
+#сreate_vacation .field-approval,
+#сreate_vacation .field-reason,
+#сreate_vacation .submit-button {
+  width: 100%;
+}
+#сreate_vacation .field-approval input,
+#сreate_vacation .field-approval textarea,
+#сreate_vacation .field-reason input,
+#сreate_vacation .field-reason textarea,
+#сreate_vacation .submit-button input,
+#сreate_vacation .submit-button textarea {
+  width: 100%;
+}
+#сreate_vacation .field-vacation-type,
+#сreate_vacation .field-vacation-time {
+  width: 100%;
+}
+#сreate_vacation .field-date-start,
+#сreate_vacation .field-date-end,
+#сreate_vacation .field-datetime-start,
+#сreate_vacation .field-datetime-end {
+  width: 48%;
+}
+#сreate_vacation .field-vacation-type input,
+#сreate_vacation .field-vacation-type select,
+#сreate_vacation .field-vacation-time input,
+#сreate_vacation .field-vacation-time select,
+#сreate_vacation .field-date-start input,
+#сreate_vacation .field-date-start select,
+#сreate_vacation .field-date-end input,
+#сreate_vacation .field-date-end select,
+#сreate_vacation .field-datetime-start input,
+#сreate_vacation .field-datetime-start select,
+#сreate_vacation .field-datetime-end input,
+#сreate_vacation .field-datetime-end select {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  #сreate_vacation .form-field {
+    width: 100%;
+  }
+  #сreate_vacation .field-vacation-type,
+  #сreate_vacation .field-date-start,
+  #сreate_vacation .field-datetime-start {
+    margin-right: 0;
+  }
+  #сreate_vacation .field-vacation-type,
+  #сreate_vacation .field-vacation-time,
+  #сreate_vacation .field-date-start,
+  #сreate_vacation .field-date-end,
+  #сreate_vacation .field-datetime-start,
+  #сreate_vacation .field-datetime-end {
+    width: 100%;
+  }
+}
+#statistic_filter_form {
+  margin-bottom: 20px;
+}
+#statistic_filter_form .form-field {
+  gap: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+#statistic_filter_form .form-field .field-select {
+  width: 180px;
+}
+#statistic_filter_form .form-field .field-select label {
+  margin-left: 5px;
+  margin-bottom: -10px;
+}
+#statistic_filter_form .form-field .field-select select {
+  width: 100%;
+}
+#statistic_filter_form .form-field .submit-button {
+  align-self: end;
+  width: 100px;
+}
+#statistic_filter_form .form-field .submit-button input {
+  width: 100%;
 }
 .page_title {
   text-align: center;
@@ -84,6 +183,32 @@ header {
   width: 1440px;
   padding: 0 15px;
   box-sizing: border-box;
+}
+
+@media (max-width: 1440px) {
+  .top-nav-bar, .main-content, .footer-content {
+    width: 1200px;
+  }
+}
+@media (max-width: 1200px) {
+  .top-nav-bar, .main-content, .footer-content {
+    width: 1100px;
+  }
+}
+@media (max-width: 1100px) {
+  .top-nav-bar, .main-content, .footer-content {
+    width: 900px;
+  }
+}
+@media (max-width: 900px) {
+  .top-nav-bar, .main-content, .footer-content {
+    width: 600px;
+  }
+}
+@media (max-width: 600px) {
+  .top-nav-bar, .main-content, .footer-content {
+    width: 320px;
+  }
 }
 table {
   margin: 0 auto;

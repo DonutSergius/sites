@@ -21,3 +21,33 @@ header {
     padding: 0 $mediumPadding;
     box-sizing: border-box;
 }
+
+@media (max-width: $bigDesktopWidth) {
+    .top-nav-bar, .main-content, .footer-content {
+        width: $desktopWidth
+    }
+}
+
+@media (max-width: $desktopWidth) {
+    .top-nav-bar, .main-content, .footer-content {
+        width: $bigTableWidth
+    }
+}
+
+@media (max-width: $bigTableWidth) {
+    .top-nav-bar, .main-content, .footer-content {
+        width: $tableWidth
+    }
+}
+
+@media (max-width: $tableWidth) {
+    .top-nav-bar, .main-content, .footer-content {
+        width: $phoneWidth
+    }
+}
+
+@media (max-width: $phoneWidth) {
+    .top-nav-bar, .main-content, .footer-content {
+        width: $smallPhoneWidth
+    }
+}

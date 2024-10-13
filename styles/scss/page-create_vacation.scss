@@ -1,0 +1,67 @@
+@import "_variables";
+
+#сreate_vacation {
+  .form-field {
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    justify-content: space-between;
+  }
+
+  .field-approval,
+  .field-reason,
+  .submit-button{
+    width: 100%;
+    input,
+    textarea {
+      width: 100%;
+    }
+  }
+
+  .field-vacation-type,
+  .field-vacation-time, {
+    width: 100%;
+  }
+
+  .field-date-start,
+  .field-date-end,
+  .field-datetime-start,
+  .field-datetime-end {
+    width: 48%;
+  }
+
+  .field-vacation-type,
+  .field-vacation-time,
+  .field-date-start,
+  .field-date-end,
+  .field-datetime-start,
+  .field-datetime-end {
+    input,
+    select {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: $tableWidth) {
+  #сreate_vacation {
+    .form-field {
+      width: 100%;
+    }
+
+    .field-vacation-type,
+    .field-date-start,
+    .field-datetime-start,{
+      margin-right: 0;
+    }
+
+    .field-vacation-type,
+    .field-vacation-time,
+    .field-date-start,
+    .field-date-end,
+    .field-datetime-start,
+    .field-datetime-end  {
+      width: 100%;
+    }
+  }
+}
