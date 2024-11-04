@@ -19,6 +19,6 @@ RewriteRule ^my-certificates$ index.php?page=my-certificates [L]
 RewriteRule ^statistic$ index.php?page=statistic [L]
 
 # Rewrite to not-found page if file or directory does not exist
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . index.php?page=not-found [L,QSA]
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule . index.php?page=not-found [L,QSA]

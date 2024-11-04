@@ -164,6 +164,7 @@ class CreateVacationForm
         if ($result !== TRUE) {
             $response['error'] = $result;
         } else {
+            $response['error'] = '';
             $response['confirm'] = "Vacation request send to moder";
         }
 

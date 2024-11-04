@@ -3,6 +3,7 @@
 namespace Sites\Table;
 
 use Sites\Class\Table;
+require_once 'config.php';
 
 class ApprovalVacationTable
 {
@@ -79,13 +80,13 @@ class ApprovalVacationTable
                 'buttons' => [
                     [
                         'element' => 'vacation',
-                        'action' => '/sites/src/FormActions/approve.php',
+                        'action' => DIRECTORY_ROOT . '/src/FormActions/approve.php',
                         'id' => $element_id,
                         'value' => 'Approve',
                     ],
                     [
                         'element' => 'vacation',
-                        'action' => '/sites/src/FormActions/disapprove.php',
+                        'action' => DIRECTORY_ROOT.'/src/FormActions/disapprove.php',
                         'id' => $element_id,
                         'value' => 'Disapprove',
                     ],
@@ -95,7 +96,6 @@ class ApprovalVacationTable
 
             $body_rows[] = $body_row;
         }
-
         return $body_rows;
     }
 }

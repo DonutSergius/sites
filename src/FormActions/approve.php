@@ -1,10 +1,16 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 use Sites\Services\DBService;
 use Sites\Services\Certificate;
 use Sites\Services\Operation;
 
+// Змініть шлях до autoload.php та config.php
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../config.php';
+error_log("POST data: " . print_r($_POST, true));
+error_log("Directory root: " . DIRECTORY_ROOT);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = isset($_POST['action']) ? intval($_POST['action']) : NULL;
@@ -79,9 +85,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $condition = "vacation_id = " . (int)$id;
 
         $result = (new DBService)->updateData($table, $data, $condition);
-
         if ($result === TRUE) {
-            header('Location: /sites/approval-vacation');
+            $location = 'Location: ' . DIRECTORY_ROOT . '/approval-vacation';
+            header($location);
             exit;
         }
 

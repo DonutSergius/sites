@@ -4,7 +4,7 @@ namespace Sites\Table;
 
 use Sites\Class\Table;
 use DateTime;
-
+require_once 'config.php';
 class MyVacationRequestTable
 {
     private $table;
@@ -83,7 +83,7 @@ class MyVacationRequestTable
                     'buttons' => [
                         [
                             'element' => 'vacation',
-                            'action' => '/sites/src/FormActions/cancel.php',
+                            'action' => DIRECTORY_ROOT.'/src/FormActions/cancel.php',
                             'id' => $element_id,
                             'value' => 'Cancel',
                         ],

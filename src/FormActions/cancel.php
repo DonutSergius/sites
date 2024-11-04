@@ -5,6 +5,9 @@ use Sites\Services\Certificate;
 use Sites\Services\Operation;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../config.php';
+error_log("POST data: " . print_r($_POST, true));
+error_log("Directory root: " . DIRECTORY_ROOT);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = isset($_POST['action']) ? intval($_POST['action']) : NULL;
@@ -79,7 +82,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = (new DBService)->updateData($table, $data, $condition);
 
         if ($result === TRUE) {
-            header('Location: /sites/my-vacation-request');
+            $location = 'Location: ' . DIRECTORY_ROOT . '/my-vacation-request';
+            header($location);
             exit;
         }
 
